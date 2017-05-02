@@ -25,6 +25,7 @@
 **/Umbraco/
 **/Umbraco_Client/
 **/packages
+**/node_modules
 
 **/bin
 **/obj

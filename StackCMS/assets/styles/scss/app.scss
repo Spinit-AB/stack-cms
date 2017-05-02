@@ -1,0 +1,35 @@
+$img-url: "../img";
+
+//Google Fonts
+@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700,900");
+
+//Normalizing
+@import "common/normalize";
+
+//Definition
+@import "definitions/functions";
+@import "definitions/color-palette";
+@import "definitions/colors";
+@import "definitions/font-sizes";
+@import "definitions/variables-bootstrap";
+@import "definitions/variables";
+
+//Import libraries
+@import "libraries";
+
+//Common functions, overrides and extensions
+@import "common/mixins";
+@import "common/icons";
+@import "common/type";
+
+//Core Components
+
+
+//Custom Components (depending on core components)
+
+
+//Layout
+@import "layout/general";
+@import "layout/header";
+@import "layout/footer";
+

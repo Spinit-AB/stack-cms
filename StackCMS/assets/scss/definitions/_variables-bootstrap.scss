@@ -1,0 +1,361 @@
+$bootstrap-sass-asset-helper: false;
+
+//== Colors
+$gray-base:             color(gray, 10);
+$gray-darker:           color(gray, 8);
+$gray-dark:             color(gray, 7);
+$gray:                  color(gray, 5);
+$gray-light:            color(gray, 3);
+$gray-lighter:          color(gray, 1);
+
+$brand-primary:         color(primary);
+$brand-success:         color(success);
+$brand-info:            color(info);
+$brand-warning:         color(warning);
+$brand-danger:          color(danger);
+
+//== Scaffolding
+$body-bg:               $white;
+$text-color:            color(neutral, 7);
+$text-color-invert:     color(neutral, 0);
+$link-color:            color(interactive, 7);
+$link-hover-color:      color(interactive, 8);
+//$link-hover-decoration: underline;
+
+
+//== Typography
+$font-family-sans-serif:  "Source Sans Pro", Helvetica, Arial, sans-serif;
+//$font-family-serif:       Georgia, "Times New Roman", Times, serif;
+//$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base:        $font-family-sans-serif;
+
+$font-size-base:          fontSize(base, false);
+$font-size-large:         fontSize(large,false);
+$font-size-small:         fontSize(small,false);
+$font-size-huge:          fontSize(huge,false);
+$font-size-humongous:     fontSize(humongous,false);
+
+$font-size-h1:            fontSize(h1,false);
+$font-size-h2:            fontSize(h2,false); 
+$font-size-h3:            fontSize(h3,false);
+$font-size-h4:            fontSize(h4,false);
+$font-size-h5:            fontSize(h5,false);
+$font-size-h6:            fontSize(h6,false);
+
+$line-height-base:        1.71428571;
+$line-height-large:       1.3333333;
+$line-height-small:       1.5;
+$line-height-computed:    ceil(($font-size-base * $line-height-base));
+
+//$headings-font-family:    inherit;
+//$headings-font-weight:    400;
+//$headings-line-height:    1.1;
+//$headings-color:          inherit;
+
+
+//== Grid system
+$grid-columns:              12;
+$grid-gutter-width:         32px;
+
+//== Components
+$horizontal-space:          $grid-gutter-width / 2;
+$vertical-space:            $line-height-computed / 2;
+
+$padding-base-vertical:     $vertical-space / 2;
+$padding-base-horizontal:   $horizontal-space * 0.75;
+
+$padding-large-vertical:    $vertical-space;
+$padding-large-horizontal:  $horizontal-space;
+
+$padding-small-vertical:    $vertical-space / 4;
+$padding-small-horizontal:  $horizontal-space / 2;
+
+$padding-xs-vertical:       1px;
+$padding-xs-horizontal:     $horizontal-space / 4;
+
+$border-radius-base:        4px;
+$border-radius-large:       6px;
+$border-radius-small:       3px;
+
+$component-active-color:    $text-color-invert;
+$component-active-bg:       color(active);
+//$caret-width-base:          4px;
+//$caret-width-large:         5px;
+
+
+//== Tables
+$table-cell-padding-vertical:   $padding-base-vertical;
+$table-cell-padding-horizontal: $padding-base-horizontal;
+$table-cell-padding:            $table-cell-padding-vertical $table-cell-padding-horizontal;
+$table-condensed-cell-padding:  $padding-small-vertical $padding-base-horizontal;
+$table-bg:                      $white;
+$table-bg-accent:               color(neutral,0.5);
+$table-bg-hover:                color(neutral,1);
+$table-bg-active:               $table-bg-hover;
+$table-border-color:            color(neutral,1);
+
+
+//== Buttons
+
+$btn-height-small-computed:       ($padding-small-vertical * 2) + ($line-height-small * $font-size-small) + 2;
+$btn-height-base-computed:        ($padding-base-vertical * 2) + ($line-height-base * $font-size-small) + 2;
+$btn-height-large-computed:       ($padding-large-vertical * 2) + ($line-height-large * $font-size-base) + 2;
+
+//$btn-font-weight:                normal;
+$btn-default-color:              color(interactive,6);
+$btn-default-bg:                 color(neutral,0);
+$btn-default-border:             color(neutral,1);
+
+$btn-primary-color:              $text-color-invert;
+$btn-primary-bg:                 color(primary,6);
+$btn-primary-border:             color(primary,4);
+
+$btn-success-color:              $text-color-invert;
+$btn-success-bg:                 color(success,6);
+$btn-success-border:             color(success,4);
+
+$btn-info-color:                 $text-color-invert;
+$btn-info-bg:                    color(info,6);
+$btn-info-border:                color(info,4);
+
+$btn-warning-color:              $text-color-invert;
+$btn-warning-bg:                 color(warning,6);
+$btn-warning-border:             color(warning,4);
+
+$btn-danger-color:               $text-color-invert;
+$btn-danger-bg:                  color(danger,6);
+$btn-danger-border:              color(danger,4);
+
+$btn-neutral-color:              $text-color-invert;
+$btn-neutral-bg:                 color(neutral,6);
+$btn-neutral-border:             color(neutral,4);
+
+$btn-link-disabled-color:        color(neutral,4);
+
+//== Forms
+$input-bg:                       $white;
+$input-bg-disabled:              color(disabled,1);
+$input-color:                    $text-color;
+$input-border:                   color(neutral,2);
+//$input-border-radius:            $border-radius-base;
+//$input-border-radius-large:      $border-radius-large;
+//$input-border-radius-small:      $border-radius-small;
+$input-border-focus:             color(active,3);
+$input-color-placeholder:        color(neutral,4);
+//$input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2);
+//$input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2);
+//$input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2);
+$form-group-margin-bottom:       $line-height-computed / 2;
+$legend-color:                   $text-color;
+$legend-border-color:            transparent;
+$input-group-addon-bg:           color(neutral,1);
+//$input-group-addon-border-color: $input-border;
+$cursor-disabled:                default;
+
+//== Dropdowns
+$dropdown-bg:                    $white;
+$dropdown-border:                color(neutral,1);
+$dropdown-fallback-border:       color(neutral, 1);
+$dropdown-divider-bg:            color(neutral, 1);
+$dropdown-link-color:            $link-color;
+$dropdown-link-hover-color:      $link-hover-color;
+$dropdown-link-hover-bg:         color(neutral, 1);
+$dropdown-link-active-color:     $component-active-color;
+$dropdown-link-active-bg:        $component-active-bg;
+$dropdown-link-disabled-color:   color(neutral, 2);
+$dropdown-header-color:          color(neutral, 2);
+$dropdown-caret-color:           $black;
+
+//-- Z-index master list
+//$zindex-navbar:            1000;
+//$zindex-dropdown:          1000;
+//$zindex-popover:           1060;
+//$zindex-tooltip:           1070;
+//$zindex-navbar-fixed:      1030;
+//$zindex-modal-background:  1040;
+//$zindex-modal:             1050;
+
+
+//== Media queries breakpoints
+
+// Extra small screen / phone
+//$screen-xs:                  480px;
+//$screen-xs-min:              $screen-xs;
+//$screen-phone:               $screen-xs-min;
+
+// Small screen / tablet
+//$screen-sm:                  768px;
+//$screen-sm-min:              $screen-sm;
+//$screen-tablet:              $screen-sm-min;
+
+// Medium screen / desktop
+//$screen-md:                  992px;
+//$screen-md-min:              $screen-md;
+//$screen-desktop:             $screen-md-min;
+
+// Large screen / wide desktop
+//$screen-lg:                  1200px;
+//$screen-lg-min:              $screen-lg;
+//$screen-lg-desktop:          $screen-lg-min;
+
+//Extra large screen / extra wide desktop
+$screen-xl:                  1600px;
+$screen-xl-min:              $screen-xl;
+$screen-xl-desktop:          $screen-xl-min;
+
+// So media queries don't overlap when required, provide a maximum
+//$screen-xs-max:              ($screen-sm-min - 1);
+//$screen-sm-max:              ($screen-md-min - 1);
+//$screen-md-max:              ($screen-lg-min - 1);
+
+
+
+//== Container sizes
+
+// Small screen / tablet
+//$container-tablet:             (720px + $grid-gutter-width);
+//$container-sm:                 $container-tablet;
+
+// Medium screen / desktop
+//$container-desktop:            (940px + $grid-gutter-width);
+//$container-md:                 $container-desktop;
+
+// Large screen / wide desktop
+//$container-large-desktop:      (1140px + $grid-gutter-width);
+//$container-lg:                 $container-large-desktop;
+
+
+//== Form states and alerts
+$state-list:                     primary, success, danger, warning, info;
+
+$state-success-text:             color(success,7);
+$state-success-bg:               color(success,1);
+$state-success-border:           color(success,1);
+
+$state-info-text:                color(info,7);
+$state-info-bg:                  color(info,1);
+$state-info-border:              color(info,1);
+
+$state-warning-text:             color(warning,7);
+$state-warning-bg:               color(warning,1);
+$state-warning-border:           color(warning,1);
+
+$state-danger-text:              color(danger,7);
+$state-danger-bg:                color(danger,1);
+$state-danger-border:            color(danger,1);
+
+
+//== Labels
+$label-default-bg:            color(neutral,0);
+$label-primary-bg:            color(primary,0);
+$label-success-bg:            color(success,0);
+$label-info-bg:               color(info,0);
+$label-warning-bg:            color(warning,0);
+$label-danger-bg:             color(danger,0);
+//$label-color:                 #fff;
+//$label-link-hover-color:      #fff;
+
+
+//== Modals
+$modal-inner-padding-vertical:  $padding-large-vertical;
+$modal-inner-padding-horizontal:  $padding-large-horizontal;
+$modal-inner-padding:         $modal-inner-padding-vertical $modal-inner-padding-horizontal;
+$modal-title-padding:         $padding-large-vertical $padding-large-horizontal;
+$modal-title-line-height:     $line-height-base;
+$modal-content-bg:            $white;
+//$modal-content-border-color:  rgba(0,0,0,.2);
+$modal-content-fallback-border-color: color(neutral,4);
+$modal-backdrop-bg:           $black;
+$modal-backdrop-opacity:      .6;
+$modal-header-border-color:   color(neutral,8);
+$modal-footer-border-color:   color(neutral,3);
+
+$modal-lg:                    960px;
+$modal-md:                    700px;
+$modal-sm:                    400px;
+
+
+//== List group
+$list-group-bg:                 color(neutral, 0);
+$list-group-border:             color(neutral, 1);
+//$list-group-border-radius:      $border-radius-base;
+$list-group-hover-bg:           color(neutral, 1);
+//$list-group-active-color:       $component-active-color;
+//$list-group-active-bg:          $component-active-bg;
+//$list-group-active-border:      $list-group-active-bg;
+//$list-group-active-text-color:  lighten($list-group-active-bg, 40%);
+$list-group-disabled-color:      color(disabled, 4);
+$list-group-disabled-bg:         color(disabled, 1);
+//$list-group-disabled-text-color: $list-group-disabled-color;
+$list-group-link-color:         $link-color;
+$list-group-link-hover-color:   $link-hover-color;
+$list-group-link-heading-color: color(neutral, 8);
+
+//== Panels
+$panel-bg:                          $white;
+$panel-body-padding-horizontal:     $padding-large-horizontal;
+$panel-body-padding-vertical:       $padding-large-vertical;
+$panel-body-padding:                $panel-body-padding-vertical $panel-body-padding-horizontal;
+$panel-heading-padding-horizontal:  $padding-large-horizontal;
+$panel-heading-padding-vertical:    $padding-large-vertical;
+$panel-heading-padding:             $panel-heading-padding-vertical $panel-heading-padding-horizontal;
+//$panel-footer-padding:              $panel-heading-padding;
+//$panel-border-radius:               $border-radius-base;
+
+$panel-inner-border:          color(neutral, 1);
+$panel-footer-bg:             color(neutral, 1);
+
+$panel-default-text:          $text-color;
+$panel-default-border:        color(neutral, 1);
+$panel-default-heading-bg:    color(neutral, 1);
+
+$panel-primary-text:          $white;
+$panel-primary-border:        color(primary);
+$panel-primary-heading-bg:    color(primary);
+
+//== Wells
+$well-bg:                     color(neutral, 1);
+$well-border:                 color(neutral, 2);
+
+
+//== Badges
+$badge-color:                 $text-color-invert;
+$badge-link-hover-color:      $badge-color;
+$badge-bg:                    color(neutral);
+$badge-active-color:          $link-color;
+$badge-active-bg:             $white;
+//$badge-font-weight:           bold;
+//$badge-line-height:           1;
+$badge-border-radius:         $border-radius-base;
+
+
+//== Breadcrumbs
+$breadcrumb-padding-vertical:   $padding-base-vertical;
+$breadcrumb-padding-horizontal: 0.25em;
+$breadcrumb-bg:                 transparent;
+$breadcrumb-color:              $text-color;
+$breadcrumb-active-color:       $text-color;
+$breadcrumb-separator:          "/";
+$breadcrumb-separator-color:    color(neutral,3);
+$breadcrumb-font-size:          $font-size-large;
+$breadcrumb-top-font-size:      $font-size-h3;
+$breadcrumb-letter-spacing:     0.05em;
+
+//== Close
+$close-font-weight:           bold;
+$close-color:                 $black;
+$close-text-shadow:           none;
+
+
+//== Type
+$component-offset-horizontal: 180px;
+$text-muted:                  color(disabled, 4);
+$abbr-border-color:           color(neutral, 4);
+$headings-small-color:        color(neutral, 4);
+$blockquote-small-color:      color(neutral, 4);
+$blockquote-font-size:        $font-size-large;
+$blockquote-border-color:     color(neutral, 2);
+$page-header-border-color:    color(neutral, 4);
+//$dl-horizontal-offset:        $component-offset-horizontal;
+//$dl-horizontal-breakpoint:    $grid-float-breakpoint;
+$hr-border:                   color(neutral, 2);

@@ -1,0 +1,12 @@
+abbr[title] {
+    border-bottom: none;
+    cursor: text;
+}
+
+ul, ol {
+    padding-left: $horizontal-space;
+}
+
+q {
+    font-style: italic;
+}

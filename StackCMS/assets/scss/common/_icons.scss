@@ -1,0 +1,157 @@
+
+//  Map your font icons to your own class names
+//  
+//  Usage:
+//  <i class="icon icon-my-icon"></i>
+//
+//  Icon from Font Awesome. 
+//    Add this row to the $icons map:
+//    my-icon: $fa-var-fontawesomename,
+//    where my-icon is your name (becoming .icon-my-icon) and fontawesomename is font awesome's icon name (i.e caret-down)
+//    or the character hex-code, for example:
+//    my-icon: '\E051',
+//  
+//  Icon from other library, 
+//    add a line like this and make sure the font correctly set up:
+//    my-icon: (content: '\e800', font: 'Glyphicons Halflings'),
+//    
+//  Applying a transformation, 
+//    for example scaling or rotating, use this.
+//    my-icon: (content: $fa-var-fontawesomename, transform: 'scale(-1, 1)'),
+//    
+//  Please maintain alphabetical order!
+
+$icons: (
+  add: $fa-var-plus,
+  caret-down: $fa-var-caret-down,
+  caret-left: $fa-var-caret-right,
+  caret-right: $fa-var-caret-right,
+  caret-up: $fa-var-caret-up,
+  close: $fa-var-times,
+  complete: $fa-var-check,
+  delete: $fa-var-trash,
+  edit: $fa-var-pencil,
+  email: $fa-var-at,
+  error: $fa-var-exclamation-circle,
+  info: $fa-var-info-circle,
+  next: $fa-var-arrow-right,
+  ok: $fa-var-check,
+  previous: $fa-var-arrow-left,
+  refresh: $fa-var-refresh,
+  remove: $fa-var-minus,
+  required: $fa-var-asterisk,
+  search: $fa-var-search,
+  send: $fa-var-send,
+  sign-in: $fa-var-sign-in,
+  sign-out: $fa-var-sign-out,
+);
+
+
+//=  Icon sizes
+//  
+//  Usage:
+//  <i class="icon icon-my-icon icon-lg"></i>  
+
+$icon-sizes: (
+  sm: $font-size-small,
+  md: $font-size-base,
+  lg: $font-size-large,
+  xl: $font-size-h2,
+  xxl: $font-size-h1
+);
+
+
+//= Mixins
+
+@mixin icon($color: inherit, $fixedWidth: false, $size: false) {
+  @include fa-icon();
+  color: $color;
+  
+  @if $fixedWidth {
+    width: (18em / 14);
+    text-align: center;
+  }
+
+  @if $size {
+    font-size: map-get($icon-sizes, $size);
+  }
+}
+
+@mixin icon-content($icon) {
+
+  @if map-has-key($icons, $icon) {
+    @if(type-of(map-get($icons, $icon))) == 'string' {
+        content: "#{map-get($icons, $icon)}";
+    }
+
+    @else {
+          @if map-has-key(map-get($icons, $icon), 'content') {
+              content: "#{map-get(map-get($icons, $icon), 'content')}";
+          }
+
+          @if map-has-key(map-get($icons, $icon), 'transform') {
+              display: inline-block;
+              transform: unquote(map-get(map-get($icons, $icon), 'transform'));
+          }
+
+          @if map-has-key(map-get($icons, $icon), 'font') {
+              font-family: (map-get(map-get($icons, $icon), 'font'));
+          }
+      
+      }
+  
+  }
+}
+
+
+//= Selectors
+
+//Main class
+.icon {
+    @extend .fa;
+}
+
+//Full width
+.icon-fw {
+    @extend .fa-fw;
+    font-style: normal;
+    display: inline-block;
+}
+
+//Block level icon
+.icon-block {
+    display: block;
+}
+
+//Naming Loop
+//.icon-[iconname]
+@each $icon, $fa in $icons {
+  .icon-#{$icon} {
+    &:before {
+      @include icon-content($icon);
+    }
+  }
+}
+
+
+//Sizing Loop
+//.icon-[size]
+@each $size, $var in $icon-sizes {
+    .icon-#{$size} {
+        font-size: $var;
+    }
+}
+
+
+//= Customizations
+
+//Caret up/down toggle on collapse
+.icon-caret-collapse:before {
+  @include icon-content('caret-up');
+  .collapsed & {
+    @include icon-content('caret-down');
+  }
+}
+
+
+

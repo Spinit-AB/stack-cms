@@ -1,0 +1,47 @@
+{
+  "name": "stackcms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-buffer": "0.0.2",
+    "gulp-clean-css": "^2.0.4",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-flatten": "^0.3.0",
+    "gulp-imagemin": "^2.3.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^2.0.0",
+    "gulp-less": "^3.1.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-main-bower-files": "^1.2.3",
+    "gulp-main-npm-files": "^1.0.5",
+    "gulp-rev": "^7.0.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-sort": "^2.0.0",
+    "gulp-uglify": "^1.4.1",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.3.5",
+    "jscs-require-space-inside-curly-braces": "0.0.3",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.0.1",
+    "open": "0.0.5",
+    "path": "^0.12.7",
+    "stream-series": "^0.1.1",
+    "yargs": "^4.2.0"
+  }
+}

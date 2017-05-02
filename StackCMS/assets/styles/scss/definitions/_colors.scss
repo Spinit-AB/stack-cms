@@ -1,0 +1,46 @@
+// Gray Base
+$white:                  hsla(0, 0%, 100%, 1);
+$black:                  hsla(0, 0%, 0%, 1);
+$gray:                   hsla(0, 0%, 50%, 1);
+
+//Theme Colors
+$blue:                   material-color('blue');
+$green:                  material-color('green');
+$red:                    material-color('red');
+$orange:                 material-color('orange');
+$pink:                   material-color('pink');
+
+//Color Mapping
+$colors: (
+  gray:                  $gray,
+  default:               $gray,
+  neutral:               $gray,
+  disabled:              $gray,
+  
+  blue:                  $blue,
+  primary:               $blue,
+  active:                $blue,
+  interactive:           $blue,
+    
+  green:                 $green,
+  success:               $green,
+  positive:              $green,
+  addition:              $green,
+  complete:              $green,
+  
+  red:                   $red,
+  danger:                $red,
+  negative:              $red,
+  error:                 $red,
+  alert:                 $red,
+  
+  orange:                $orange,
+  warning:               $orange,
+  complementary:         $orange,
+  processing:            $orange,
+  
+  pink:                  $pink,
+  info:                  $pink,
+  secondary:             $pink,
+  important:             $pink,
+);

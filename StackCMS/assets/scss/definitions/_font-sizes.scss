@@ -1,0 +1,17 @@
+$font-size-root:          14px;
+$font-scale:              1.25;
+$font-decrease-scale:     0.857;
+
+$fontSizes: (
+  small:                 $font-decrease-scale,
+  h6:                    $font-decrease-scale,
+  base:                  1,
+  h5:                    1,
+  large:                 2,
+  h4:                    2,
+  h3:                    3,
+  h2:                    4,
+  h1:                    5,
+  huge:                  6,
+  humongous:             7,
+);

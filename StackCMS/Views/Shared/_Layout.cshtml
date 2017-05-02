@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,6 +7,10 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+	
+	<!-- inject:css -->
+	<link rel="stylesheet" href="/assets/styles/css/app.css">
+	<!-- endinject -->
 </head>
 <body>
    @Html.Partial("_Navbar")
@@ -21,5 +25,10 @@
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+	
+	<!-- inject:js -->
+	<script src="/node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+	<!-- endinject -->
+
 </body>
 </html>

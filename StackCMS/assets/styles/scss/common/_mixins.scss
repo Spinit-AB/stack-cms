@@ -1,0 +1,10 @@
+//Line-clamp - Multiple lines ellipsis
+@mixin line-clamp($max-lines, $line-height: 1) {
+    display: -webkit-box;
+    -webkit-line-clamp: $max-lines;
+    -webkit-box-orient: vertical; 
+
+    line-height: $line-height;
+    max-height: calc(#{$max-lines * $line-height}em - 0.12em); //Make a little adjustment
+    overflow: hidden;
+}
