@@ -22,7 +22,7 @@ namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Home</summary>
 	[PublishedContentModel("home")]
-	public partial class Home : Master
+	public partial class Home : PublishedContentModel
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "home";
@@ -46,21 +46,48 @@ namespace Umbraco.Web.PublishedContentModels
 		}
 
 		///<summary>
-		/// Fisk
+		/// Body Text
 		///</summary>
-		[ImplementPropertyType("fisk")]
-		public string Fisk
+		[ImplementPropertyType("bodyText")]
+		public IHtmlString BodyText
 		{
-			get { return this.GetPropertyValue<string>("fisk"); }
+			get { return this.GetPropertyValue<IHtmlString>("bodyText"); }
 		}
 
 		///<summary>
-		/// TestHome
+		/// Meta Description
 		///</summary>
-		[ImplementPropertyType("testHome")]
-		public string TestHome
+		[ImplementPropertyType("metaDescription")]
+		public string MetaDescription
 		{
-			get { return this.GetPropertyValue<string>("testHome"); }
+			get { return this.GetPropertyValue<string>("metaDescription"); }
+		}
+
+		///<summary>
+		/// Meta Title
+		///</summary>
+		[ImplementPropertyType("metaTitle")]
+		public string MetaTitle
+		{
+			get { return this.GetPropertyValue<string>("metaTitle"); }
+		}
+
+		///<summary>
+		/// Page Title
+		///</summary>
+		[ImplementPropertyType("pageTitle")]
+		public string PageTitle
+		{
+			get { return this.GetPropertyValue<string>("pageTitle"); }
+		}
+
+		///<summary>
+		/// Sub Heading
+		///</summary>
+		[ImplementPropertyType("subHeading")]
+		public string SubHeading
+		{
+			get { return this.GetPropertyValue<string>("subHeading"); }
 		}
 	}
 }

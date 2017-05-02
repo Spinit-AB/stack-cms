@@ -1,5 +1,7 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage<ContentPage>
+﻿@inherits UmbracoViewPage<ContentPage>
 @using ContentModels = Umbraco.Web.PublishedContentModels;
 @{
-	Layout = null;
+Layout = null;
 }
+
+<p>@Model.PageTitle</p>

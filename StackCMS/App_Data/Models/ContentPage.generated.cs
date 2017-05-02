@@ -22,7 +22,7 @@ namespace Umbraco.Web.PublishedContentModels
 {
 	/// <summary>Content Page</summary>
 	[PublishedContentModel("contentPage")]
-	public partial class ContentPage : Master
+	public partial class ContentPage : Home
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "contentPage";
