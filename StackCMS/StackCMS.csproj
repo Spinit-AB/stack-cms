@@ -299,6 +299,10 @@
       <HintPath>..\packages\UmbracoCms.Core.7.5.13\lib\umbraco.providers.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Umbraco.Web.PublishedContentModels, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Umbraco.Web.PublishedContentModels.dll</HintPath>
+    </Reference>
     <Reference Include="Umbraco.Web.UI, Version=1.0.6309.16506, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UmbracoCms.Core.7.5.13\lib\Umbraco.Web.UI.dll</HintPath>
       <Private>True</Private>
@@ -313,8 +317,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Models\all.dll.path" />
-    <Content Include="App_Data\Models\models.hash" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.css" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.html" />
     <Content Include="App_Plugins\uSync\uSyncDashboardController.js" />
@@ -375,6 +377,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\ContentPage.cshtml" />
+    <Content Include="Views\Partials\_Navbar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -410,7 +413,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Data\Models\models.generated.cs" />
     <Compile Include="Features\Home\HomeController.cs" />
     <Compile Include="Features\Home\HomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -420,6 +422,7 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.0.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Controller\" />
   </ItemGroup>
   <PropertyGroup>

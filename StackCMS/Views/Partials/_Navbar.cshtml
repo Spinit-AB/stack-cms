@@ -1,0 +1,31 @@
+﻿@using umbraco.NodeFactory
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        @*<div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>*@
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                @{
+                    var umbracoContext = Umbraco.Web.UmbracoContext.Current;
+                    var umbraco = new Umbraco.Web.UmbracoHelper(umbracoContext);
+
+                    var rootNodes = umbraco.TypedContentAtRoot();
+                    var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
+                }
+
+                <li class="@(homeNodeByAlias.Id == Node.GetCurrent().Id ? "active" : "")"><a href="@homeNodeByAlias.Url">@homeNodeByAlias.GetProperty("PageTitle").Value</a></li>
+
+                @foreach (var child in homeNodeByAlias.Children())
+                {
+                    
+                    <li class="@(child.Id == Node.GetCurrent().Id ? "active" : "")"><a href="@child.Url">@child.GetProperty("PageTitle").Value</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

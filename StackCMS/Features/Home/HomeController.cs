@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using Umbraco.Web;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 
@@ -12,7 +14,7 @@ namespace StackCMS.Features.Home
             {
                 Titel = "Page titel"
             };
-            
+        
             return base.CurrentTemplate(homeModel);
         }
     }
