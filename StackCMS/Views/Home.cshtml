@@ -1,7 +1,8 @@
-﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Home>
-@using ContentModels = Umbraco.Web.PublishedContentModels;
+﻿@inherits UmbracoViewPage<StackCMS.Features.Home.HomeModel>
 @{
 	Layout = "Shared/_Layout.cshtml";
 }
 
-<p>2 @Model.TestMaster</p>
+<p>@Model.TestMaster</p>
+<p>@Model.TestHome</p>
+<p>@Model.Titel</p>

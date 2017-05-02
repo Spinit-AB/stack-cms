@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web;
-using Umbraco.Core.Models;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Web.Models;
+﻿using Umbraco.Core.Models;
 
 namespace StackCMS.Features.Home
 {
-    public class HomeModel : PublishedContentModel
+    public class HomeModel : Umbraco.Web.PublishedContentModels.Home
     {
         public string Titel { get; set; }
 

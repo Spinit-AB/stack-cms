@@ -8,10 +8,9 @@ namespace StackCMS.Features.Home
     {
         public override ActionResult Index(RenderModel model)
         {
-            //Do some stuff here, then return the base method
             var homeModel = new HomeModel(model.Content)
             {
-                Titel = "krumler"
+                Titel = "Page titel"
             };
             
             return base.CurrentTemplate(homeModel);
