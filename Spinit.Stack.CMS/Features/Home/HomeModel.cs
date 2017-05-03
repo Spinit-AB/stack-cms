@@ -2,7 +2,7 @@
 
 namespace Spinit.Stack.CMS.Features.Home
 {
-    public class HomeModel : Umbraco.Web.PublishedContentModels.Home
+    public class HomeModel : GeneratedModels.Home
     {
         public string Titel { get; set; }
 
