@@ -4,15 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@Model.MetaTitle</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
-	
+
 	<!-- inject:css -->
 	<link rel="stylesheet" href="/assets/styles/css/app.css">
 	<!-- endinject -->
 </head>
-<body>
+<body ng-app="Spinit.Stack.CMS">
    @Html.Partial("_Navbar")
 
 <div class="container body-content">
@@ -23,12 +20,15 @@
     </footer>
 </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-	
-	<!-- inject:js -->
-	<script src="/node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
-	<!-- endinject -->
+    <!-- Dev-dependencies have to be inserted manually-->
+    <script src="/node_modules/angular/angular.js"></script>
+
+    <!-- inject:js -->
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="/Features/angular.module.js"></script>
+    <script src="/Features/Home/home.controller.js"></script>
+    <!-- endinject -->
 
 </body>
 </html>
