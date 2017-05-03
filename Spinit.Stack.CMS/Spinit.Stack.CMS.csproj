@@ -105,6 +105,14 @@
       <HintPath>..\packages\uSync.3.3.3.740\lib\net45\Jumoo.uSync.BackOffice.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Jumoo.uSync.Content, Version=3.3.3.740, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.ContentEdition.3.3.3.740\lib\net45\Jumoo.uSync.Content.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jumoo.uSync.ContentMappers, Version=3.3.3.740, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\uSync.ContentMappers.3.3.3.740\lib\net45\Jumoo.uSync.ContentMappers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Jumoo.uSync.Core, Version=5.6.3.740, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\uSync.Core.5.6.3.740\lib\net45\Jumoo.uSync.Core.dll</HintPath>
       <Private>True</Private>
@@ -317,12 +325,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\uSync.Content\uSyncDashboardContent.html" />
+    <Content Include="App_Plugins\uSync.Content\uSyncDashboardContentController.js" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.css" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.html" />
     <Content Include="App_Plugins\uSync\uSyncDashboardController.js" />
     <Content Include="App_Plugins\uSync\uSyncDashboardService.js" />
-    <Content Include="Features\angular.app.js" />
-    <Content Include="Features\Home\home.component.js" />
+    <Content Include="Features\angular.module.js" />
+    <Content Include="Features\Home\home.controller.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
     <Content Include="config\imageprocessor\security.config" />
@@ -370,6 +380,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\ContentPage.cshtml" />
     <Content Include="Views\Partials\_Navbar.cshtml" />
+    <Content Include="App_Plugins\uSync.Content\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -405,6 +416,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Content\ContentPageController.cs" />
+    <Compile Include="Features\Content\ContentPageModel.cs" />
     <Compile Include="GeneratedModels\ContentPage.generated.cs">
       <DependentUpon>ModelsBuilder.cs</DependentUpon>
     </Compile>
@@ -442,7 +455,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controller\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
