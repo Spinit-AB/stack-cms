@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackCMS", "StackCMS\StackCMS.csproj", "{A053D99D-C42C-46D4-B032-4726E901DEAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spinit.Stack.CMS", "Spinit.Stack.CMS\Spinit.Stack.CMS.csproj", "{A053D99D-C42C-46D4-B032-4726E901DEAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Models;
 
-namespace StackCMS.Features.Home
+namespace Spinit.Stack.CMS.Features.Home
 {
     public class HomeModel : Umbraco.Web.PublishedContentModels.Home
     {

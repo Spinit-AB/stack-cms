@@ -4,7 +4,7 @@ using Umbraco.Web;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
 
-namespace StackCMS.Features.Home
+namespace Spinit.Stack.CMS.Features.Home
 {
     public class HomeController : RenderMvcController
     {
