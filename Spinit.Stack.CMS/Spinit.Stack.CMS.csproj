@@ -105,14 +105,6 @@
       <HintPath>..\packages\uSync.3.3.3.740\lib\net45\Jumoo.uSync.BackOffice.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Jumoo.uSync.Content, Version=3.3.3.740, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uSync.ContentEdition.3.3.3.740\lib\net45\Jumoo.uSync.Content.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Jumoo.uSync.ContentMappers, Version=3.3.3.740, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\uSync.ContentMappers.3.3.3.740\lib\net45\Jumoo.uSync.ContentMappers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Jumoo.uSync.Core, Version=5.6.3.740, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\uSync.Core.5.6.3.740\lib\net45\Jumoo.uSync.Core.dll</HintPath>
       <Private>True</Private>
@@ -325,8 +317,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\uSync.Content\uSyncDashboardContent.html" />
-    <Content Include="App_Plugins\uSync.Content\uSyncDashboardContentController.js" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.css" />
     <Content Include="App_Plugins\uSync\uSyncDashboard.html" />
     <Content Include="App_Plugins\uSync\uSyncDashboardController.js" />
@@ -380,7 +370,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\ContentPage.cshtml" />
     <Content Include="Views\Partials\_Navbar.cshtml" />
-    <Content Include="App_Plugins\uSync.Content\package.manifest" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
