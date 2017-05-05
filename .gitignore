@@ -21,13 +21,20 @@
 # ImageProcessor DiskCache 
 **/App_Data/cache/
 
-
+# Umbraco files
 **/Umbraco/
 **/Umbraco_Client/
+
+# Packages
 **/packages
 **/node_modules
 
+# Binaries
 **/bin
 **/obj
 
+# Local Settings
 **/.vs
+
+# Generated
+**/assets/styles/css
