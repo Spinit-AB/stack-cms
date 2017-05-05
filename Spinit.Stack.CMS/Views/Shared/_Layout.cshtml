@@ -11,15 +11,13 @@
 	<!-- endinject -->
 </head>
 <body ng-app="Spinit.Stack.CMS">
-   @Html.Partial("_Navbar")
+    @Html.Partial("_Header")
 
-<div class="container body-content">
+    <div class="container">
         @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Spinit.Stack.CMS</p>
-    </footer>
-</div>
+
+        @Html.Partial("_Footer")
+    </div>
 
     <!-- Dev-dependencies have to be inserted manually-->
     <script src="/node_modules/angular/angular.js"></script>
@@ -30,6 +28,5 @@
     <script src="/Features/angular.module.js"></script>
     <script src="/Features/Home/home.controller.js"></script>
     <!-- endinject -->
-
 </body>
 </html>

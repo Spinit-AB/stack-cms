@@ -355,7 +355,6 @@
     <Content Include="default.aspx" />
     <Content Include="Features\angular.module.js" />
     <Content Include="Features\Home\home.controller.js" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="config\imageprocessor\security.config" />
@@ -372,9 +371,6 @@
     <Content Include="config\Dashboard.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home.cshtml" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\ContentPage.cshtml" />
     <Content Include="Views\Partials\_Navbar.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
@@ -403,6 +399,8 @@
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
     <None Include="config\UrlRewriting.Config" />
+    <Content Include="Views\Partials\_Footer.cshtml" />
+    <Content Include="Views\Partials\_Header.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
