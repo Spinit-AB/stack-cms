@@ -39,7 +39,7 @@ gulp.task('watch', ['dev'], () => {
  * DEV!
  * Injects js and css into index.html
  */
-gulp.task('dev', ['inject-js', 'inject-css'], () => {
+gulp.task('dev', ['inject-js', 'inject-css', 'move-fonts-local'], () => {
     log(config.index + ' updated');
 });
 
@@ -64,6 +64,24 @@ gulp.task('inject-css', ['compile-styles'], () => {
         .pipe(cssFilter);
     return target.pipe($.inject(series(vendorSources, appSources)))
         .pipe(gulp.dest(config.indexRoot));
+});
+
+gulp.task('move-fonts-local', ['clean-local-fonts'], () => {
+    var fontsFilter = () => $.filter(['**/fonts/**']);
+
+    var npmFonts = gulp.src(mainNpmFiles())
+        .pipe(fontsFilter())
+        .pipe(flatten({ newPath: 'fonts' }));
+		
+    var fontawesomePath = gulp.src(config.fontAwesomePath)
+        .pipe(fontsFilter());
+
+    return series(npmFonts, fontawesomePath)
+        .pipe(gulp.dest(config.stylesDir));
+});
+
+gulp.task('clean-local-fonts', (done) => {
+    clean(config.stylesFontDir, done);
 });
 
 /**

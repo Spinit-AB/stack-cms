@@ -4,6 +4,9 @@
   var jsDistDir = distDir + 'js/';
   var jsSrcDir = root + 'Features/';
   var stylesDir = root + 'assets/styles/';
+  var stylesFontDir = stylesDir + 'fonts/';
+  var fontAwesomePath = 'node_modules/font-awesome/';
+  
   var cssBuildDir = stylesDir + 'css/';
 
   var stylesDistDir = distDir + 'styles/';
@@ -30,6 +33,7 @@
     stylesDistDir: stylesDistDir,
     stylesDir: stylesDir,
     styles: stylesDir + '**/*.*',
+	fontAwesomePath : fontAwesomePath + '**/*.*',
     bower: bower,
 	npm: npm,
     index: index,
