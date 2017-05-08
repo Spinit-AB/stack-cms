@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
+using Umbraco.Core.Logging;
 using Umbraco.Web;
 using Umbraco.Web.Models;
 using Umbraco.Web.Mvc;
@@ -14,7 +16,9 @@ namespace Spinit.Stack.CMS.Features.Home
             {
                 Titel = "Page titel"
             };
-        
+            
+            LogHelper.Info(GetType(), "Test log");
+
             return base.CurrentTemplate(homeModel);
         }
     }
