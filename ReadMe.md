@@ -20,7 +20,9 @@ Execute the configure script with name and port parameters. The port will be the
 
 4. Open the solution-file in Visual Studio and launch the project (if npm will kick in on startup this can take a while and it can seem like Visual Studio is hanging, be patient :) )
 
-5. When you launch the site Umbraco will greet you with a Installation guide. Fill in credentials for your account and click "Customize"
+5. When you launch the site Umbraco will greet you with a Installation guide. Fill in credentials you want for your account. Be careful as the password is displayed in clear text. Later the password will be visable in Visual Studio settings so dont use your own password.
+
+Click "Customize"
 
 !!! Important !!! Dont click "Install" here.
 
@@ -44,7 +46,7 @@ Execute the configure script with name and port parameters. The port will be the
 11. Now your site is installed! Please check the other setups to get everything up and running.
 
 ### Npm setup
-1. If your Visual Studio didnt run npm for you we can always make it manually. You will notice if your  <project-root>/node_modules are populated or not. If not. Please proceed. 
+1. If your Visual Studio didnt run npm for you we can have to make it manually. You will notice if your  <project-root>/node_modules are populated or not. If not. Please proceed. 
 2. Install [Node.js](https://nodejs.org/en/). If you havent installed npm already.
 2. Open command prompt
 3. Change directory to <project-root>/Spinit.Stack.CMS/
@@ -57,6 +59,7 @@ If you want a new package run
 or run  
 
 `npm install package-name --save-dev` This will install the package so your fellow users can take a share of it. But you will have to manually include the packages to <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
+You can always check what mainfiles gulp wants to inject by checking the  in the node_modules/<package-name>/package.json and check what files are showing in the "main" section.
 
 ### Gulp taskrunner
 1. Open command prompt
@@ -90,7 +93,74 @@ or run
 3. Go to http://localhost:12345/ 
     You should now have a page with a navbar menu for your two pages
 
-### Create a new pagetype
+### Create a new Document Type
+
+1. Go to Umbraco edit mode http://localhost:12345/umbraco
+
+2. Go to Settings and open "Document Types" folder.
+
+3. Hover over a node (if you want to inherite variables from eg "Home" you can create your new document type under this node) and click the three dots ***
+
+4. Give your document type a name (eg "Article Page") and and click "Save"
+
+5. If you for example created your document type under home to inherit the variables make sure that it allows the listing of your new document type. Click the document node and click on "Permissions" in the right corner. Click "Add child" and select your newly createed document type (eg Article Page)
+
+6. Your document type shoould be generated in Spinit.Stack.CMS/GeneretedModels/ModelsBuilder.cs
+    If its not generating you can right click on the "ModelsBuilder.cs" and select "Run custom tool" and it should appear. 
+    If not, check your settings in Tools->Options->Umbraco->ModelsBuilder Options
+
+7. Create a new folder (eg ArticlePage) under Spinit.Stack.CMS/Features/
+
+8. Create a new model class (eg ArticlePageModel.cs) and make it inherit from the generated ArticlePage
+
+```
+  public class ArticlePageModel : GeneratedModels.ArticlePage
+    {
+        public ArticlePageModel(IPublishedContent content) : base(content)
+        {
+        }
+    }
+```
+Here you can add values you want to send to your view from the backend. It also contains the variables that are defined in Umbraco, those will also be available in the view.
+
+9. Create a new controller class (eg ArticlePageController). We need to setup the controller so Umbraco will recognize it with RenderMvcController. You can just copy the code below
+
+```
+ public class ArticlePageController : RenderMvcController
+    {
+        public override ActionResult Index(RenderModel model)
+        {
+            var articlePageModel = new ArticlePageModel(model.Content)
+            {
+                //Here you can set your custom model variables that are not defined in Umbraco
+            };
+
+            return base.CurrentTemplate(articlePageModel);
+        }
+    }
+```
+
+10. Umbraco should have created a View page for you. Go to Spinit.Stack.CMS/Views in Visual Studio Solution Explorer and click the refresh button and it should appear. Right click and include the view in the project. The view needs to inherits from UmbracoViewPage with your created model. You can also access all your model variables from @Model
+
+```
+@inherits UmbracoViewPage<Brottsportalen.Web.Features.ArticlePage.ArticlePageModel>
+@{
+	Layout = "Shared/_Layout.cshtml";
+}
+
+<h1>@Model.PageTitle</h1>   
+
+```
+
+11. Build your project and go to Umbraco edit mode http://localhost:12345/umbraco
+
+12. Go to content and hover over your node (eg Home) and click the three dots ***. Select your item (eg Article Page). Give it a name and click "Save and Publish"
+
+13. Visit the created page. Select the page Properties->Link to document to find the friendly link to it.
+
+14. If everything worked you now have a new document type! 
+
+    You can go  back to Settings->"Document Types" and add specific document type properties by selecting the document type and click "Add proprty"
 
 
 ## log4net
