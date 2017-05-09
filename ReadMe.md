@@ -12,29 +12,29 @@
 
 ### Project Setup
 
-2. Open up Powershell and navigate to your chosen location
+1. Open up Powershell and navigate to your chosen location
 Execute the configure script with name and port parameters. The port will be the port on which your local iis express should host this site  
-.\configure.ps1 -name 'ANameOfYourChoice'
+`.\configure.ps1 -name 'ANameOfYourChoice'`
 
-3. Create a empty database (Umbraco supports SQL server, Azure SQL, MySQL or a custom connectionstring)
+2. Create a empty database (Umbraco supports SQL server, Azure SQL, MySQL or a custom connectionstring)
 
-4. Open the solution-file in Visual Studio and launch the project (if npm will kick in on startup this can take a while and it can seem like Visual Studio is hanging, be patient :) )
+3. Open the solution-file in Visual Studio and launch the project (if npm will kick in on startup this can take a while and it can seem like Visual Studio is hanging, be patient :) )
 
-5. When you launch the site Umbraco will greet you with a Installation guide. Fill in credentials you want for your account. Be careful as the password is displayed in clear text. Later the password will be visable in Visual Studio settings so dont use your own password.
+4. When you launch the site Umbraco will greet you with a Installation guide. Fill in credentials you want for your account. Be careful as the password is displayed in clear text. Later the password will be visable in Visual Studio settings so dont use your own password.
 
 Click "Customize"
 
 !!! Important !!! Dont click "Install" here.
 
-6. Select your database type and click "Continue"
+5. Select your database type and click "Continue"
 
-7. Enter your database credentials and click "Continue"
+6. Enter your database credentials and click "Continue"
 
-8. Click "No Thanks! I dont want a starter kit"
+7. Click "No Thanks! I dont want a starter kit"
 
-9. If everything goes as planned you should now be redirected to Umbraco CMS editing mode, eg http://localhost:12345/umbraco#/umbraco
+8. If everything goes as planned you should now be redirected to Umbraco CMS editing mode, eg http://localhost:12345/umbraco#/umbraco
 
-10. From Visual Studio. Go to Tools->Options->Umbraco->ModelsBuilder Options
+9. From Visual Studio. Go to Tools->Options->Umbraco->ModelsBuilder Options
     Update the settings:
 
     SiteUrl (eg http://localhost:12345)  
@@ -43,7 +43,7 @@ Click "Customize"
 
     This will automatically generate your Umbraco models to backend so you can strictly use them from code.
 
-11. Now your site is installed! Please check the other setups to get everything up and running.
+10. Now your site is installed! Please check the other setups to get everything up and running.
 
 ### Npm setup
 1. If your Visual Studio didnt run npm for you we can have to make it manually. You will notice if your  <project-root>/node_modules are populated or not. If not. Please proceed. 
@@ -52,14 +52,14 @@ Click "Customize"
 3. Change directory to <project-root>/Spinit.Stack.CMS/
 4. Execute `npm install`
 
-If you want a new package run  
+    If you want a new package run  
 
-`npm install package-name --save` Use this if you want the main files of the package to automatically inject into <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
+    `npm install package-name --save` Use this if you want the main files of the package to automatically inject into <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
 
-or run  
+    or run  
 
-`npm install package-name --save-dev` This will install the package so your fellow users can take a share of it. But you will have to manually include the packages to <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
-You can always check what mainfiles gulp wants to inject by checking the  in the node_modules/<package-name>/package.json and check what files are showing in the "main" section.
+    `npm install package-name --save-dev` This will install the package so your fellow users can take a share of it. But you will have to manually include the packages to <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
+    You can always check what mainfiles gulp wants to inject by checking the  in the node_modules/<package-name>/package.json and check what files are showing in the "main" section.
 
 ### Gulp taskrunner
 1. Open command prompt
@@ -103,7 +103,7 @@ You can always check what mainfiles gulp wants to inject by checking the  in the
 
 4. Give your document type a name (eg "Article Page") and and click "Save"
 
-5. If you for example created your document type under home to inherit the variables make sure that it allows the listing of your new document type. Click the document node and click on "Permissions" in the right corner. Click "Add child" and select your newly createed document type (eg Article Page)
+5. Make sure that your document type is allowed to be listed under the parent of your new document type. From Settings click the document type of the parent and select "Permissions" in the right corner. Click "Add child" and select your createed document type (eg Article Page)
 
 6. Your document type shoould be generated in Spinit.Stack.CMS/GeneretedModels/ModelsBuilder.cs
     If its not generating you can right click on the "ModelsBuilder.cs" and select "Run custom tool" and it should appear. 
@@ -113,44 +113,43 @@ You can always check what mainfiles gulp wants to inject by checking the  in the
 
 8. Create a new model class (eg ArticlePageModel.cs) and make it inherit from the generated ArticlePage
 
-```
-  public class ArticlePageModel : GeneratedModels.ArticlePage
-    {
-        public ArticlePageModel(IPublishedContent content) : base(content)
+    ```
+    public class ArticlePageModel : GeneratedModels.ArticlePage
         {
+            public ArticlePageModel(IPublishedContent content) : base(content)
+            {
+            }
         }
-    }
-```
-Here you can add values you want to send to your view from the backend. It also contains the variables that are defined in Umbraco, those will also be available in the view.
+    ```
+    Here you can add values you want to send to your view from the backend. It also contains the variables that are defined in Umbraco, those will also be available in the view.
 
 9. Create a new controller class (eg ArticlePageController). We need to setup the controller so Umbraco will recognize it with RenderMvcController. You can just copy the code below
 
-```
- public class ArticlePageController : RenderMvcController
-    {
-        public override ActionResult Index(RenderModel model)
+    ```
+    public class ArticlePageController : RenderMvcController
         {
-            var articlePageModel = new ArticlePageModel(model.Content)
+            public override ActionResult Index(RenderModel model)
             {
-                //Here you can set your custom model variables that are not defined in Umbraco
-            };
+                var articlePageModel = new ArticlePageModel(model.Content)
+                {
+                    //Here you can set your custom model variables that are not defined in Umbraco
+                };
 
-            return base.CurrentTemplate(articlePageModel);
+                return base.CurrentTemplate(articlePageModel);
+            }
         }
-    }
-```
+    ```
 
 10. Umbraco should have created a View page for you. Go to Spinit.Stack.CMS/Views in Visual Studio Solution Explorer and click the refresh button and it should appear. Right click and include the view in the project. The view needs to inherits from UmbracoViewPage with your created model. You can also access all your model variables from @Model
 
-```
-@inherits UmbracoViewPage<Brottsportalen.Web.Features.ArticlePage.ArticlePageModel>
-@{
-	Layout = "Shared/_Layout.cshtml";
-}
+    ```
+    @inherits UmbracoViewPage<Brottsportalen.Web.Features.ArticlePage.ArticlePageModel>
+    @{
+        Layout = "Shared/_Layout.cshtml";
+    }
 
-<h1>@Model.PageTitle</h1>   
-
-```
+    <h1>@Model.PageTitle</h1>   
+    ```
 
 11. Build your project and go to Umbraco edit mode http://localhost:12345/umbraco
 
@@ -165,9 +164,9 @@ Here you can add values you want to send to your view from the backend. It also 
 
 ## log4net
 - To use Umbracos LogHelper:
-```
-LogHelper.Info(GetType(), "Test log");
-```
+    ```
+    LogHelper.Info(GetType(), "Test log");
+    ```
 - Logs are stored default in <project-root>/Spinit.Stack.CMS/App_Data/Logs
 - Log4net Config 
 <project-root>/Spinit.Stack.CMS/config/log4net.config
