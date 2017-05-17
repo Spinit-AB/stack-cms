@@ -48,7 +48,7 @@ Click "Customize"
     User Name (its the mail you entered at when installed Umbraco)
     User Password (And the password you entered when Installing Umbraco)
 
-    This will automatically generate your Umbraco models to backend so you can strictly use them from code.
+    This will give you possibility to generate your Umbraco models to backend so you can use them  as strictly classes from code.
 
 10. Now your site is installed! Please check the other setups to get everything up and running.
 
