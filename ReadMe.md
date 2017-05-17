@@ -34,7 +34,14 @@ Click "Customize"
 
 8. If everything goes as planned you should now be redirected to Umbraco CMS editing mode, eg http://localhost:12345/umbraco#/umbraco
 
-9. From Visual Studio. Go to Tools->Options->Umbraco->ModelsBuilder Options
+8. 	From Visual Studio. Go to Tools->"Extensions and Updates"
+	Find and install "Umbraco ModelsBuilder Custom Tool"
+	
+	Restart Visual Studio.
+
+9. 	Open Visual Studio again and go to Tools->Options->Umbraco->ModelsBuilder Options
+	This should appear after the extension install in step 8.
+	
     Update the settings:
 
     SiteUrl (eg http://localhost:12345)  
