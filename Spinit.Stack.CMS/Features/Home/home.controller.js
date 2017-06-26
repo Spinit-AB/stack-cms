@@ -1,7 +1,9 @@
-﻿(function () {
+﻿var angular = require('angular');
+
+(function () {
 
     angular.module('Spinit.Stack.CMS')
-        .controller("home", ['$scope', function ($scope) {
+        .controller("home.controller", ['$scope', function ($scope) {
             $scope.test = "Test text";
         }]);
 

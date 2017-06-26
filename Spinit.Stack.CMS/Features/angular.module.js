@@ -1,13 +1,19 @@
-﻿(function () {
-    'use strict';
+﻿'use strict';
 
-    var angularApp = angular.module('Spinit.Stack.CMS',
-        [
-            'ui.bootstrap',
-            'ngAnimate'
-            ]);
+import angular from 'angular'
+import 'angular-ui-bootstrap';
+import 'angular-animate';
 
-    angularApp.config(function () {
+angular.module('Spinit.Stack.CMS',
+[
+    'ui.bootstrap',
+    'ngAnimate'
+]);
 
-    });
-})();
+var req = require.context("./", true, /^(.*\.(js$))[^.]*$/igm);
+
+req.keys().forEach(function (key) {
+    req(key);
+});
+
+

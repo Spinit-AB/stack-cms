@@ -2,5 +2,7 @@
 @{
 	Layout = "Shared/_Layout.cshtml";
 }
-
-<h1>@Model.Test</h1>
+<div ng-controller="content.controller">
+    <h1>@Model.Test</h1>
+    <p>{{test}}</p>
+</div>

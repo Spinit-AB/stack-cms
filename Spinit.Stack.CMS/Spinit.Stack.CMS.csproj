@@ -22,10 +22,14 @@
     <IISExpressSSLPort />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <IISExpressAnonymousAuthentication></IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication></IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode></IISExpressUseClassicPipelineMode>
-    <UseGlobalApplicationHostFile></UseGlobalApplicationHostFile>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile>
+    </UseGlobalApplicationHostFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -354,6 +358,7 @@
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="default.aspx" />
     <Content Include="Features\angular.module.js" />
+    <Content Include="Features\Content\content.controller.js" />
     <Content Include="Features\Home\home.controller.js" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
@@ -468,7 +473,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:60372/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
