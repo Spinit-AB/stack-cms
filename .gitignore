@@ -42,4 +42,4 @@ Spinit.Stack.CMS.UmbracoModelsBuilder.user
 **/assets/styles/css
 **/assets/styles/fonts
 Spinit.Stack.CMS/connectionStrings.Debug.config
-Spinit.Stack.CMS//dist
+Spinit.Stack.CMS/dist
