@@ -16,6 +16,12 @@
   var bower = root + 'bower.json';
   var npm = root + 'package.json';
 
+    var manualNodeDependenciesJs =
+    [
+        'node_modules/angular/angular.js',
+        'node_modules/angular-animate/angular-animate.js',
+        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js'
+    ];
   var config = {
     distDir: distDir,
     jsDistDir: jsDistDir,
@@ -39,7 +45,7 @@
     index: index,
 	indexRoot: indexRoot,
     root: root,
-
+    manualNodeDependenciesJs: manualNodeDependenciesJs,
     semanticSiteWatch: root + 'assets/semantic/src/site/**/*.{overrides,variables}',
     semanticThemeWatch: root + 'assets/semantic/src/themes/**/*.{overrides,variables}'
   }
