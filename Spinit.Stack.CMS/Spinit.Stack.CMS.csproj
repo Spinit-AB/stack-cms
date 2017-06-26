@@ -401,6 +401,13 @@
     <None Include="config\UrlRewriting.Config" />
     <Content Include="Views\Partials\_Footer.cshtml" />
     <Content Include="Views\Partials\_Header.cshtml" />
+    <Content Include="connectionStrings.config" />
+    <Content Include="connectionStrings.Debug.config">
+      <DependentUpon>connectionStrings.config</DependentUpon>
+    </Content>
+    <Content Include="connectionStrings.Release.config">
+      <DependentUpon>connectionStrings.config</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -84,6 +84,28 @@ Click "Customize"
     
     This will create a release with minified js and css into <project-root>/Spinit.Stack.CMS/dist and inject the minified versions into <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
 
+### Personal Debug Connection String
+If you want custom conenction strings that dosent need to be committed into the repository you can activate the debug connection string.
+
+1. Make sure you run the initial Umbraco setup.
+
+2. Create a file named "connectionStrings.Debug.config" in Spinit.Stack.CMS/
+
+3. Go to Web.Config and uncomment
+```
+<!--<connectionStrings configSource="connectionStrings.Debug.config"></connectionStrings>-->
+ ```
+and make sure to remove the other <connectionString></connectionString> node
+
+4. Add your custom connectionString in "connectionStrings.Debug.config", 
+ for example:
+```
+<connectionStrings>
+  <remove name="umbracoDbDSN" />
+  <add name="umbracoDbDSN" connectionString="Server=.\SQL2016;Database=StackCMS;Integrated Security=true" providerName="System.Data.SqlClient" />
+</connectionStrings>
+```
+
 ### Umbraco Page Setup
 
 1. Start by creating the home page. 
