@@ -68,6 +68,8 @@ Click "Customize"
     `npm install package-name --save-dev` This will install the package so your fellow users can take a share of it. But you will have to manually include the packages to <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
     You can always check what mainfiles gulp wants to inject by checking the  in the node_modules/<package-name>/package.json and check what files are showing in the "main" section.
 
+    If you're installing a package that is not included automatically because in the npm main files you need to add the path to the dist-js variable "manualNodeDependenciesJs" in the gulp.config.js
+
 ### Gulp taskrunner
 1. Open command prompt
 2. Change directory to <project-root>/Spinit.Stack.CMS/
