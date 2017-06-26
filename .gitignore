@@ -24,6 +24,8 @@
 # Umbraco files
 **/Umbraco/
 **/Umbraco_Client/
+**/Media
+Spinit.Stack.CMS.UmbracoModelsBuilder.user
 
 # Packages
 **/packages
@@ -39,3 +41,5 @@
 # Generated
 **/assets/styles/css
 **/assets/styles/fonts
+Spinit.Stack.CMS/connectionStrings.Debug.config
+Spinit.Stack.CMS//dist
