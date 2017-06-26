@@ -22,7 +22,7 @@ namespace Spinit.Stack.CMS.GeneratedModels
 {
 	/// <summary>Content Page</summary>
 	[PublishedContentModel("contentPage")]
-	public partial class ContentPage : Home
+	public partial class ContentPage : BasePage
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "contentPage";
