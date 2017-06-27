@@ -1,9 +1,9 @@
-$img-url: "../img";
+/* $img-url: "../img"; */
 
-//Google Fonts
-@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700,900");
+/* //Google Fonts */
+/* @import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,700,900"); */
 
-//Normalizing
+//Normalizing 
 @import "common/normalize";
 
 //Definition
@@ -14,18 +14,18 @@ $img-url: "../img";
 @import "definitions/variables-bootstrap";
 @import "definitions/variables";
 
-//Import libraries
-@import "libraries";
+//Import libraries 
+@import "libraries"; 
 
 //Common functions, overrides and extensions
 @import "common/mixins";
-@import "common/icons";
+/* @import "common/icons"; */
 @import "common/type";
 
-//Core Components
+/* //Core Components */
 
 
-//Custom Components (depending on core components)
+/* //Custom Components (depending on core components) */
 
 
 //Layout

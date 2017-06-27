@@ -2,9 +2,10 @@
 // Description: Import the libraries you want to use
 
 // Using Bootstrap's SCSS files.
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+//@import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
 
 // If you want to use the default Bootstrap Theme (http://getbootstrap.com/examples/theme), uncomment this line
 // @import "../../lib/bootstrap/scss/theme";
 
-@import "../../../node_modules/font-awesome/scss/font-awesome";
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/_bootstrap";

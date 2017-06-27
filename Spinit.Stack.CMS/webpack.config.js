@@ -1,33 +1,122 @@
 const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 let config = {
     paths: {
         features: path.resolve(__dirname, './Features'),
         dist: path.resolve(__dirname, './dist'),
+        assets: path.resolve(__dirname, './assets/'),
+        node_modules: path.resolve(__dirname, './node_modules'),
     }
 }
 
 module.exports = {
-	context: path.resolve(__dirname, './'),
-    entry: path.resolve(__dirname, './Features/angular.module.js'),
+    context: path.resolve(__dirname, './'),
+    entry: {
+        main: [
+            path.resolve(__dirname, './Features/angular.module.js'),
+            './assets/styles/scss/app.scss'
+        ]
+    },
     output: {
         path: config.paths.dist,
-        filename: 'bundle.js'
+        filename: 'scripts/[name].bundle.js',
     },
+    plugins: [
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'common',
+        //     filename: 'scripts/common.js',
+        //     minChunks: 2,
+        // }),
+        new ExtractTextPlugin({
+            filename: 'styles/[name].css',
+            allChunks: true,
+        }),
+        // new HappyPack({
+        //     id: 'sass',
+        //     loaders: ExtractTextPlugin.extract({
+        //         fallback: 'style-loader',
+        //         use: ['css-loader', 'sass-loader'],
+        //     }),
+        // }),
+        // new webpack.ProvidePlugin({
+        //     jQuery: 'jquery',
+        //     $: 'jquery',
+        //     jquery: 'jquery',
+        // }),
+    ],
     module: {
-		rules: [{
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: [{
-                    loader: 'babel-loader?cacheDirectory=true',
-                    options: {
-                        presets: ['es2015']
-                    }
-                }]
-            }]
+        rules: [{
+            test: /\.js$/,
+            include: config.paths.assets,
+            use: [{
+                loader: 'babel-loader?cacheDirectory=true',
+                options: {
+                    presets: ['es2015']
+                }
+            }],
+        },
+        {
+            test: /\.css$/,
+            include: config.paths.assets,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                publicPath: '../',
+                use: ['css-loader', 'postcss-loader'],
+            }),
+        },
+        {
+            test: /\.(sass|scss)$/,
+            include: [
+                config.paths.assets,
+                config.paths.node_modules,
+            ],
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                publicPath: '../',
+                use: ['css-loader', 'postcss-loader', 'sass-loader'],
+            }),
+        },
+        {
+            test: /\.less$/,
+            include: config.paths.assets,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                publicPath: '../',
+                use: ['css-loader', 'less-loader'],
+            }),
+        },
+        {
+            test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
+            include: [
+                config.paths.assets,
+                config.paths.node_modules,
+            ],
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    mimetype: 'application/font-woff',
+                },
+            }],
+        },
+        {
+            test: /\.(ttf|eot|png|jpe?g|gif|svg|ico)(\?v=\d+\.\d+\.\d+)?$/,
+            include: [
+                config.paths.assets,
+                config.paths.node_modules
+            ],
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]',
+                },
+            }],
+        },
+        ],
     },
-	resolve: {
-        modules: ['node_modules'],
+    resolve: {
+        modules: [config.paths.assets, config.paths.node_modules],
     },
     devtool: "#inline-source-map"
 };
