@@ -68,6 +68,8 @@ Click "Customize"
     `npm install package-name --save-dev` This will install the package so your fellow users can take a share of it. But you will have to manually include the packages to <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
     You can always check what mainfiles gulp wants to inject by checking the  in the node_modules/<package-name>/package.json and check what files are showing in the "main" section.
 
+    If you're installing a package that is not included automatically because in the npm main files you need to add the path to the dist-js variable "manualNodeDependenciesJs" in the gulp.config.js
+
 ### Gulp taskrunner
 1. Open command prompt
 2. Change directory to <project-root>/Spinit.Stack.CMS/
@@ -81,6 +83,28 @@ Click "Customize"
     `gulp build`
     
     This will create a release with minified js and css into <project-root>/Spinit.Stack.CMS/dist and inject the minified versions into <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
+
+### Personal Debug Connection String
+If you want custom conenction strings that dosent need to be committed into the repository you can activate the debug connection string.
+
+1. Make sure you run the initial Umbraco setup.
+
+2. Create a file named "connectionStrings.Debug.config" in Spinit.Stack.CMS/
+
+3. Go to Web.Config and uncomment
+```
+<!--<connectionStrings configSource="connectionStrings.Debug.config"></connectionStrings>-->
+ ```
+and make sure to remove the other <connectionString></connectionString> node
+
+4. Add your custom connectionString in "connectionStrings.Debug.config", 
+ for example:
+```
+<connectionStrings>
+  <remove name="umbracoDbDSN" />
+  <add name="umbracoDbDSN" connectionString="Server=.\SQL2016;Database=StackCMS;Integrated Security=true" providerName="System.Data.SqlClient" />
+</connectionStrings>
+```
 
 ### Umbraco Page Setup
 

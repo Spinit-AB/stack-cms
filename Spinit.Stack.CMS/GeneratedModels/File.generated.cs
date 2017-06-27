@@ -67,9 +67,9 @@ namespace Spinit.Stack.CMS.GeneratedModels
 		/// Upload file
 		///</summary>
 		[ImplementPropertyType("umbracoFile")]
-		public object UmbracoFile
+		public string UmbracoFile
 		{
-			get { return this.GetPropertyValue("umbracoFile"); }
+			get { return this.GetPropertyValue<string>("umbracoFile"); }
 		}
 	}
 }

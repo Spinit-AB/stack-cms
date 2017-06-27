@@ -51,7 +51,8 @@ gulp.task('inject-js', () => {
         .pipe(sort(jsSort));
     var vendorSources = gulp.src(mainNpmFiles())
         .pipe(jsFilter);
-    return target.pipe($.inject(series(vendorSources, appSources)))
+    var manualNodeDependenciesJs = gulp.src(config.manualNodeDependenciesJs);
+    return target.pipe($.inject(series(vendorSources, manualNodeDependenciesJs, appSources)))
         .pipe(gulp.dest(config.indexRoot));
 });
 
@@ -127,7 +128,9 @@ gulp.task('move-fonts', ['clean-dist'], () => {
     var stylesFonts = gulp.src(config.styles)
         .pipe(fontsFilter());
 
-    return series(npmFonts, stylesFonts)
+    var fontawesomePath = gulp.src(config.fontAwesomePath)
+    .pipe(fontsFilter());
+    return series(npmFonts, stylesFonts, fontawesomePath)
         .pipe(gulp.dest(config.stylesDistDir));
 });
 
@@ -150,7 +153,8 @@ gulp.task('minify-js', ['clean-dist'], () => {
     var vendorSource = gulp.src(mainNpmFiles())
         .pipe(jsFilter);
 
-    return series(vendorSource, appSource)
+    var manualNodeDependenciesJs = gulp.src(config.manualNodeDependenciesJs);
+    return series(vendorSource, manualNodeDependenciesJs, appSource)
         .pipe(concat('spinit.stack.min.js'))
         .pipe($.buffer())
         .pipe($.rev())
