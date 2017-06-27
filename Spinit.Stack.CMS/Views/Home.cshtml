@@ -3,9 +3,8 @@
 	Layout = "Shared/_Layout.cshtml";
 }
 
-<div ng-controller="home.controller">
+<h1>@Model.PageTitle</h1>
 
-    <h1>@Model.PageTitle</h1>
+<p>@Model.BodyText</p>
 
-    <p>{{test}}</p>
-</div>
+<div id="HomePage"></div>

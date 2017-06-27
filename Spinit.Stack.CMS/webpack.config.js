@@ -15,7 +15,7 @@ module.exports = {
     context: path.resolve(__dirname, './'),
     entry: {
         main: [
-            path.resolve(__dirname, './Features/angular.module.js'),
+            path.resolve(__dirname, './index.tsx'),
             './assets/styles/scss/app.scss'
         ]
     },
@@ -48,14 +48,11 @@ module.exports = {
     ],
     module: {
         rules: [{
-            test: /\.js$/,
-            include: config.paths.assets,
-            use: [{
-                loader: 'babel-loader?cacheDirectory=true',
-                options: {
-                    presets: ['es2015']
-                }
-            }],
+            test: /\.tsx?$/,
+            loader: 'ts-loader',
+                // options: {
+                //     presets: ['es2015', 'react']
+                // }
         },
         {
             test: /\.css$/,
@@ -117,6 +114,7 @@ module.exports = {
     },
     resolve: {
         modules: [config.paths.assets, config.paths.node_modules],
+        extensions: ['.ts', '.tsx', '.js']
     },
     devtool: "#inline-source-map"
 };
