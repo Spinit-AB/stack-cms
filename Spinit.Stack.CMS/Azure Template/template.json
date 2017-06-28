@@ -1,0 +1,169 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "sqlServerAdministratorLogin": {
+      "type": "string"
+    },
+    "sqlServerAdministratorLoginPassword": {
+      "type": "securestring"
+    },
+    "webAppScmUser": {
+      "type": "string"
+    },
+    "webAppScmUserPassword": {
+      "type": "securestring"
+    }
+
+  },
+  "variables": {
+    "location": "[resourceGroup().location]",
+    "sqlServerName": "[replace(toLower(concat(resourceGroup().name)), '.', '-')]",
+    "sqlServerAdministratorLogin": "[parameters('sqlServerAdministratorLogin')]",
+    "sqlServerAdministratorLoginPassword": "[parameters('sqlServerAdministratorLoginPassword')]", 
+    "sqlDatabaseName": "[concat(resourceGroup().name, '-sql')]",
+    "storageAccountName": "[replace(replace(toLower(resourceGroup().name), '.', ''), '-', '')]",
+    "appServicePlanName": "[concat(resourceGroup().name, '-serviceplan-')]",
+    "appServiceName": "[concat(replace(resourceGroup().name,'.', '-'))]"
+  },
+  "resources": [
+    ////////////////////////////////////////
+    // SQL-server
+    ////////////////////////////////////////
+    {
+      "apiVersion": "2014-04-01-preview",
+      "dependsOn": [],
+      "kind": "v12.0",
+      "location": "[variables('location')]",
+      "name": "[variables('sqlServerName')]",
+      "properties": {
+        "administratorLogin": "[variables('sqlServerAdministratorLogin')]",
+        "administratorLoginPassword": "[variables('sqlServerAdministratorLoginPassword')]",
+        "version": "12.0"
+      },
+      "type": "Microsoft.Sql/servers"
+    },
+    ////////////////////////////////////////
+    // SQL-server firewall rules
+    ////////////////////////////////////////
+    {
+      "apiVersion": "2014-04-01-preview",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+      ],
+      "location": "[variables('location')]",
+      "name": "[concat(variables('sqlServerName'), '/AllowAllWindowsAzureIps')]",
+      "properties": {
+        "startIpAddress": "0.0.0.0",
+        "endIpAddress": "0.0.0.0"
+      },
+      "resources": [],
+      "type": "Microsoft.Sql/servers/firewallrules"
+    },
+    ////////////////////////////////////////
+    // SQL-database
+    ////////////////////////////////////////
+    {
+      "apiVersion": "2014-04-01-preview",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+      ],
+      "location": "[variables('location')]",
+      "name": "[concat(variables('sqlServerName'), '/', variables('sqlDatabaseName'))]",
+      "properties": {
+        "collation": "Finnish_Swedish_CI_AS", // SQL_Latin1_General_CP1_CI_AS
+        "edition": "Basic"
+      },
+      "resources": [],
+      "type": "Microsoft.Sql/servers/databases"
+    },
+    ////////////////////////////////////////
+    // Azure Storage
+    ////////////////////////////////////////
+    {
+      "apiVersion": "2016-01-01",
+      "comments": "Azure Storage",
+      "kind": "Storage",
+      "location": "[variables('location')]",
+      "name": "[variables('storageAccountName')]",
+      "properties": {},
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "type": "Microsoft.Storage/storageAccounts"
+    },
+    ////////////////////////////////////////
+    // App Service-plan
+    ////////////////////////////////////////
+    {
+      "apiVersion": "2014-06-01",
+      "comments": "Azure App Service-plan",
+      "dependsOn": [],
+      "location": "[variables('location')]",
+      "name": "[variables('appServicePlanName')]",
+      "properties": {
+        "numberOfWorkers": 1,
+        "sku": "Free",
+        "workerSize": "Small"
+      },
+      "type": "Microsoft.Web/serverfarms"
+    },
+    ////////////////////////////////////////
+    // App Service
+    ////////////////////////////////////////
+    {
+      "apiVersion": "2015-08-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+      ],
+      "location": "[variables('location')]",
+      "name": "[variables('appServiceName')]",
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/sites', variables('appServiceName'))]"
+          ],
+          "name": "appsettings",
+          "properties": {
+            "Azure.Scm.UserName": "[parameters('webAppScmUser')]",
+            "Azure.Scm.Password": "[parameters('webAppScmUserPassword')]"
+          },
+          "type": "config"
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('appServiceName'))]",
+            "[resourceId('Microsoft.SQL/servers/databases', variables('sqlServerName'), variables('sqlDatabaseName'))]",
+            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+          ],
+          "name": "connectionstrings",
+          "properties": {
+            "Database": {
+              "type": "SQLAzure",
+              "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('sqlDatabaseName'), ';User Id=', variables('sqlServerAdministratorLogin'), ';Password=', variables('sqlServerAdministratorLoginPassword'), ';')]"
+            },
+            "Azure.Storage": {
+              "type": "Custom",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2016-01-01').keys[0].value)]"
+            },
+            // Not really needed, only to avoid error in webjob portal
+            "AzureWebJobsDashboard": {
+              "type": "Custom",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listkeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2016-01-01').keys[0].value)]"
+            }
+          },
+          "type": "config"
+        }
+      ],
+      "type": "Microsoft.Web/sites"
+    }
+   
+  ],
+  "outputs": {
+  }
+}
