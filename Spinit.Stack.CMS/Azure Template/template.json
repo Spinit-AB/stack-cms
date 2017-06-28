@@ -23,7 +23,7 @@
     "sqlServerAdministratorLoginPassword": "[parameters('sqlServerAdministratorLoginPassword')]", 
     "sqlDatabaseName": "[concat(resourceGroup().name, '-sql')]",
     "storageAccountName": "[replace(replace(toLower(resourceGroup().name), '.', ''), '-', '')]",
-    "appServicePlanName": "[concat(resourceGroup().name, '-serviceplan-')]",
+    "appServicePlanName": "[concat(resourceGroup().name, '-serviceplan')]",
     "appServiceName": "[concat(replace(resourceGroup().name,'.', '-'))]"
   },
   "resources": [
