@@ -374,6 +374,9 @@
     <Content Include="default.aspx" />
     <Content Include="Features\angular.module.js" />
     <Content Include="Features\Content\content.controller.js" />
+    <Content Include="postcss.config.js" />
+    <Content Include="webpack.config.js" />
+    <TypeScriptCompile Include="Features\Home\HomeIndex.tsx" />
     <TypeScriptCompile Include="Features\Home\HomePage.tsx" />
     <Content Include="Features\Home\home.controller.js" />
     <Content Include="Global.asax" />
@@ -419,6 +422,7 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
+    <Content Include=".babelrc" />
     <None Include="config\UrlRewriting.Config" />
     <Content Include="Views\Partials\_Footer.cshtml" />
     <Content Include="Views\Partials\_Header.cshtml" />
@@ -430,12 +434,15 @@
       <DependentUpon>connectionStrings.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="package.json" />
+    <Content Include="tsconfig.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <TypeScriptCompile Include="index.tsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
@@ -508,7 +515,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60372/</IISUrl>
+          <IISUrl>http://localhost:53893/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -528,10 +535,12 @@
     <Error Condition="!Exists('..\packages\uSync.3.3.3.740\build\uSync.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\uSync.3.3.3.740\build\uSync.targets'))" />
     <Error Condition="!Exists('..\packages\UmbracoCms.7.6.0\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.7.6.0\build\UmbracoCms.props'))" />
     <Error Condition="!Exists('..\packages\UmbracoCms.7.6.0\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.7.6.0\build\UmbracoCms.targets'))" />
+    <Error Condition="!Exists('..\packages\OctoPack.3.6.1\build\OctoPack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OctoPack.3.6.1\build\OctoPack.targets'))" />
   </Target>
   <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <Import Project="..\packages\uSync.3.3.3.740\build\uSync.targets" Condition="Exists('..\packages\uSync.3.3.3.740\build\uSync.targets')" />
   <Import Project="..\packages\UmbracoCms.7.6.0\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.7.6.0\build\UmbracoCms.targets')" />
+  <Import Project="..\packages\OctoPack.3.6.1\build\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.6.1\build\OctoPack.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

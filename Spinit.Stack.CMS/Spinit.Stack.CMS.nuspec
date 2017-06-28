@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Spinit.Stack.CMS</id>
+    <title>Spinit.Stack.CMS</title>
+    <version>$version$</version>
+    <authors>Spinit AB</authors>
+    <owners>Spinit.Stack.CMS</owners>
+    <description>Contains the Spinit.Stack.CMS Umbraco CMS with angular web site</description>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Copyright 2017</copyright>
+    <tags></tags>
+    <releaseNotes>Initial release</releaseNotes>   
+  </metadata>
+  <files>
+  	<file src="dist\**\*.*" target="dist" />
+  	<file src="umbraco\**\*" target="umbraco" />
+  	<file src="umbraco_client\**\*" target="umbraco_client" />
+	  <file src="uSync\**\*" target="uSync" />
+  </files>
+</package>
