@@ -84,6 +84,24 @@ Click "Customize"
     
     This will create a release with minified js and css into <project-root>/Spinit.Stack.CMS/dist and inject the minified versions into <project-root>/Spinit.Stack.CMS/Views/Shared/_Layout.cshtml 
 
+### Webpack
+1. Open command prompt
+2. Change directory to <project-root>/Spinit.Stack.CMS/
+3. Run ```webpack``` to build your files or use ```webpack watch``` to notice changes
+
+Release
+Build, minimize and uglify with
+```webpack -p```
+
+### TeamCity
+1. Create a project
+2. Go to "General settings" of the project
+3. Click "Create build configuration"->"Manually"
+4. Enter a name of the build eg "Release"
+5. Click "Based on template" and select "Spinit.CMS.Webpack"
+6. Add your repo to "VCS Root"
+7. Push a change to the master branch
+8. The TeamCity should now build and push a package named "Spinit.Stack.CMS.1.0.0.0" to https://spinit.octopus.se
 ### Personal Debug Connection String
 If you want custom conenction strings that dosent need to be committed into the repository you can activate the debug connection string.
 
