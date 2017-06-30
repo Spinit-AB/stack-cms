@@ -423,7 +423,7 @@
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
     <Content Include=".babelrc" />
-    <None Include="config\UrlRewriting.Config" />
+    <Content Include="config\UrlRewriting.Config" />
     <Content Include="Views\Partials\_Footer.cshtml" />
     <Content Include="Views\Partials\_Header.cshtml" />
     <Content Include="connectionStrings.config" />
