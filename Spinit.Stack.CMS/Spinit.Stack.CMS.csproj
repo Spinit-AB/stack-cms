@@ -436,6 +436,22 @@
     </Content>
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
+    <Content Include="assets\styles\scss\app.scss" />
+    <Content Include="assets\styles\scss\common\_icons.scss" />
+    <Content Include="assets\styles\scss\common\_mixins.scss" />
+    <Content Include="assets\styles\scss\common\_normalize.scss" />
+    <Content Include="assets\styles\scss\common\_type.scss" />
+    <Content Include="assets\styles\scss\definitions\_color-palette.scss" />
+    <Content Include="assets\styles\scss\definitions\_colors.scss" />
+    <Content Include="assets\styles\scss\definitions\_font-sizes.scss" />
+    <Content Include="assets\styles\scss\definitions\_functions.scss" />
+    <Content Include="assets\styles\scss\definitions\_variables-bootstrap.scss" />
+    <Content Include="assets\styles\scss\definitions\_variables.scss" />
+    <Content Include="assets\styles\scss\layout\_footer.scss" />
+    <Content Include="assets\styles\scss\layout\_general.scss" />
+    <Content Include="assets\styles\scss\layout\_header.scss" />
+    <Content Include="assets\styles\scss\_libraries.scss" />
+    <Content Include="Spinit.Stack.CMS.nuspec" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
