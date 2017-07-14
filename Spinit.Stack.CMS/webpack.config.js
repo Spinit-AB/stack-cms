@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path');
 const webpack = require('webpack');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 let config = {
@@ -8,9 +9,9 @@ let config = {
         features: path.resolve(__dirname, './Features'),
         dist: path.resolve(__dirname, './dist'),
         assets: path.resolve(__dirname, './assets/'),
-        node_modules: path.resolve(__dirname, './node_modules'),
+        node_modules: path.resolve(__dirname, './node_modules')
     }
-}
+};
 
 module.exports = {
     context: path.resolve(__dirname, './'),
@@ -32,7 +33,7 @@ module.exports = {
         // }),
         new ExtractTextPlugin({
             filename: 'styles/[name].css',
-            allChunks: true,
+            allChunks: true
         }),
         // new HappyPack({
         //     id: 'sass',
@@ -41,29 +42,19 @@ module.exports = {
         //         use: ['css-loader', 'sass-loader'],
         //     }),
         // }),
-        // new webpack.ProvidePlugin({
-        //     jQuery: 'jquery',
-        //     $: 'jquery',
-        //     jquery: 'jquery',
-        // }),
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            jquery: 'jquery',
+            'window.jQuery': 'jquery',
+            $: 'jquery',
+        }),
     ],
     module: {
         rules: [{
             test: /\.tsx?$/,
-            loader: 'ts-loader',
-                // options: {
-                //     presets: ['es2015', 'react']
-                // }
+            loader: 'ts-loader'
         },
-        {
-            test: /\.css$/,
-            include: config.paths.assets,
-            use: ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                publicPath: '../',
-                use: ['css-loader', 'postcss-loader'],
-            }),
-        },
+
         {
             test: /\.(sass|scss)$/,
             include: [
@@ -74,7 +65,16 @@ module.exports = {
                 fallback: 'style-loader',
                 publicPath: '../',
                 use: ['css-loader', 'postcss-loader', 'sass-loader'],
-            }),
+            })
+        },
+        {
+            test: /\.css$/,
+            include: config.paths.assets,
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                publicPath: '../',
+                use: ['css-loader', 'postcss-loader'],
+            })
         },
         {
             test: /\.less$/,
@@ -83,7 +83,7 @@ module.exports = {
                 fallback: 'style-loader',
                 publicPath: '../',
                 use: ['css-loader', 'less-loader'],
-            }),
+            })
         },
         {
             test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
@@ -94,9 +94,9 @@ module.exports = {
             use: [{
                 loader: 'url-loader',
                 options: {
-                    mimetype: 'application/font-woff',
-                },
-            }],
+                    mimetype: 'application/font-woff'
+                }
+            }]
         },
         {
             test: /\.(ttf|eot|png|jpe?g|gif|svg|ico)(\?v=\d+\.\d+\.\d+)?$/,
@@ -108,10 +108,10 @@ module.exports = {
                 loader: 'file-loader',
                 options: {
                     name: '[path][name].[ext]',
-                },
-            }],
-        },
-        ],
+                }
+            }]
+        }
+        ]
     },
     resolve: {
         modules: [config.paths.assets, config.paths.node_modules],

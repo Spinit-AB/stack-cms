@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@types/react": "^15.0.32",
+    "bloodhound-js": "^1.2.2",
+    "corejs-typeahead": "^1.1.1",
     "font-awesome": "^4.7.0"
   },
   "devDependencies": {

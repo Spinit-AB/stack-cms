@@ -374,6 +374,7 @@
     <Content Include="default.aspx" />
     <Content Include="Features\angular.module.js" />
     <Content Include="Features\Content\content.controller.js" />
+    <Content Include="Features\Search\typeahead.js" />
     <Content Include="postcss.config.js" />
     <Content Include="webpack.config.js" />
     <TypeScriptCompile Include="Features\Home\HomeIndex.tsx" />
@@ -452,6 +453,7 @@
     <Content Include="assets\styles\scss\layout\_header.scss" />
     <Content Include="assets\styles\scss\_libraries.scss" />
     <Content Include="Spinit.Stack.CMS.nuspec" />
+    <Content Include="assets\styles\scss\components\_typeaheadjs.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -471,6 +473,7 @@
   <ItemGroup>
     <Compile Include="Features\Content\ContentPageController.cs" />
     <Compile Include="Features\Content\ContentPageModel.cs" />
+    <Compile Include="Features\Search\SearchController.cs" />
     <Compile Include="GeneratedModels\BasePage.generated.cs">
       <DependentUpon>ModelsBuilder.cs</DependentUpon>
     </Compile>

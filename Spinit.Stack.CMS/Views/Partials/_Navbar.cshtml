@@ -19,6 +19,11 @@
                     <li class="@(child.Id == Node.GetCurrent().Id ? "active" : "")"><a href="@child.Url">@child.GetProperty("PageTitle").Value</a></li>
                 }
             </ul>
+            <form id="search-form" class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
         </div>
     </div>
 </div>
