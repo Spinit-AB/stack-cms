@@ -17,19 +17,12 @@ span.twitter-typeahead {
         background-color: #f5f5f5;
     }
 
-
     .input-group & {
-        //display: block !important;
         .tt-menu {
-            //top:(2 * $input-padding-y + $font-size-base * $line-height-base + 2 * $input-btn-border-width/$font-size-root) !important;
-            top: () !important;
         }
     }
 
     .form-control {
-        // padding: $input-padding-y-lg $input-padding-x-lg;
-        // font-size: $font-size-lg;
-        // @include border-radius($input-border-radius-lg);
         width: 100%;
     }
 }
