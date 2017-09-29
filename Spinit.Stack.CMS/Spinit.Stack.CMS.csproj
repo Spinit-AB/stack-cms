@@ -449,6 +449,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomApplicationEventHandler.cs" />
+    <Compile Include="Features\ContentApi\ContentPageApiController.cs" />
     <Compile Include="Features\Content\ContentPageController.cs" />
     <Compile Include="Features\Content\ContentPageModel.cs" />
     <Compile Include="Features\Search\SearchController.cs" />
