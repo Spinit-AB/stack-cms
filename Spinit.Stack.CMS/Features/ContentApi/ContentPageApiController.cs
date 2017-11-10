@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using Our.Umbraco.Vorto.Extensions;
-using umbraco.cms.presentation.create.controls;
 using Umbraco.Core;
 using Umbraco.Web.Extensions;
 using Umbraco.Web.WebApi;
