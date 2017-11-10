@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Our.Umbraco.Vorto.Extensions;
 using Umbraco.Core;
@@ -37,6 +38,45 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             }
             
             return menu;
+        }
+
+        [System.Web.Http.HttpGet]
+        public object Translations(string language)
+        {
+            var rootDictionaryItems = Services.LocalizationService.GetRootDictionaryItems();
+
+            var translations = GetAllDictonaryItems(rootDictionaryItems, language).SelectMany(d => d).ToDictionary(e => e.Key, e => e.Value); ;
+
+            return translations;
+        }
+
+        private IEnumerable<Dictionary<string, object>> GetAllDictonaryItems(IEnumerable<IDictionaryItem> dictionaryItems, string language)
+        {
+            var translations = new List<Dictionary<string, object>>();
+
+            foreach (var dictionaryItem in dictionaryItems)
+            {
+                var translationInLanguage = dictionaryItem.Translations.Where(translation => translation.Language.IsoCode.StartsWith(language)).Select(x => x.Value).FirstOrDefault();
+
+                if (string.IsNullOrEmpty(translationInLanguage))
+                {
+                    translationInLanguage = dictionaryItem.Translations.Where(translation => translation.Language.IsoCode.StartsWith("en-US")).Select(x => x.Value).FirstOrDefault();
+                }
+
+                translations.Add(
+                    new Dictionary<string, object>()
+                    {{ dictionaryItem.ItemKey,
+                        translationInLanguage}
+                    });
+
+                var childrens = Services.LocalizationService.GetDictionaryItemChildren(dictionaryItem.Key);
+                if (childrens.Any())
+                {
+                    translations.AddRange(GetAllDictonaryItems(Services.LocalizationService.GetDictionaryItemChildren(dictionaryItem.Key),language));
+                }
+            }
+
+            return translations;
         }
 
         [System.Web.Http.HttpGet]
@@ -93,5 +133,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
             return value;
         }
+
+
     }
 }
