@@ -45,12 +45,12 @@ namespace Spinit.Stack.CMS.Features.ContentApi
         {
             var rootDictionaryItems = Services.LocalizationService.GetRootDictionaryItems();
 
-            var translations = GetAllDictonaryItems(rootDictionaryItems, language).SelectMany(d => d).ToDictionary(e => e.Key, e => e.Value);
+            var translations = GetDictonaryItems(rootDictionaryItems, language).SelectMany(d => d).ToDictionary(e => e.Key, e => e.Value);
 
             return translations;
         }
 
-        private IEnumerable<Dictionary<string, object>> GetAllDictonaryItems(IEnumerable<IDictionaryItem> dictionaryItems, string language)
+        private IEnumerable<Dictionary<string, object>> GetDictonaryItems(IEnumerable<IDictionaryItem> dictionaryItems, string language)
         {
             var translations = new List<Dictionary<string, object>>();
 
@@ -72,7 +72,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                 var childrens = Services.LocalizationService.GetDictionaryItemChildren(dictionaryItem.Key);
                 if (childrens.Any())
                 {
-                    translations.AddRange(GetAllDictonaryItems(Services.LocalizationService.GetDictionaryItemChildren(dictionaryItem.Key),language));
+                    translations.AddRange(GetDictonaryItems(Services.LocalizationService.GetDictionaryItemChildren(dictionaryItem.Key),language));
                 }
             }
 
