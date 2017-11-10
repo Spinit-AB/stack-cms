@@ -2,6 +2,7 @@
 using System.Linq;
 using Our.Umbraco.Vorto.Extensions;
 using Umbraco.Core;
+using Umbraco.Core.Models;
 using Umbraco.Web;
 using Umbraco.Web.Extensions;
 using Umbraco.Web.WebApi;
@@ -45,18 +46,9 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
             var contentType = Services.ContentService.GetById(page.Id);
 
-            var customProperties = contentType.Properties.ToDictionary(prop => prop.Alias,
-                property => 
-                    property.PropertyType?.PropertyEditorAlias == "Umbraco.MediaPicker2" ?
-                    Udi.Parse(property.Value.ToString()).ToPublishedContent().Url :
+            var customProperties = contentType.Properties.ToDictionary(property => property.Alias,
+                property => GetPropertyValue(property, page, language)
 
-                    property.PropertyType?.PropertyEditorAlias == "Umbraco.ContentPicker2" ?
-                    Udi.Parse(property.Value.ToString()).ToPublishedContent().Id :
-
-                    property.PropertyType?.PropertyEditorAlias == "Our.Umbraco.Vorto" ?
-                    page.GetVortoValue(property.Alias, language) :  
-                    
-                    property.Value
                 );
 
             var umbracoProperties = new Dictionary<string, object>
@@ -70,6 +62,36 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             };
 
             return umbracoProperties;
+        }
+
+        private object GetPropertyValue(Property property, IPublishedContent page, string language)
+        {
+            object value;
+
+            switch (property.PropertyType?.PropertyEditorAlias)
+            {
+                case "Umbraco.MediaPicker2":
+                    var mediaUdi = property.Value?.ToString();
+
+                    value = !string.IsNullOrEmpty(mediaUdi) ? Udi.Parse(property.Value?.ToString())?.ToPublishedContent()?.Url : null;
+                    break;
+
+                case "Umbraco.ContentPicker2":
+                    var contentUdi = property.Value?.ToString();
+
+                    value = !string.IsNullOrEmpty(contentUdi) ? Udi.Parse(contentUdi)?.ToPublishedContent()?.Id : null;
+                    break;
+
+                case "Our.Umbraco.Vorto":
+                    value = page.GetVortoValue(property.Alias, language);
+                    break;
+
+                default:
+                    value = property.Value;
+                    break;
+            }
+
+            return value;
         }
     }
 }
