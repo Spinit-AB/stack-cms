@@ -2,6 +2,7 @@
 using System.Linq;
 using Our.Umbraco.Vorto.Extensions;
 using Umbraco.Core;
+using Umbraco.Web;
 using Umbraco.Web.Extensions;
 using Umbraco.Web.WebApi;
 
@@ -9,6 +10,34 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 {
     public class ContentController : UmbracoApiController
     {
+
+        [System.Web.Http.HttpGet]
+        public object MainMenu(string language = null)
+        {
+            var rootPage = Umbraco.TypedContentAtRoot().First();
+
+            var menu = new List<object>();
+
+            foreach (var menuParent in rootPage.Children)
+            {
+                var menuItems = menuParent.Children.Select(page => new
+                {
+                    Id = page.Id,
+                    pageTitle = page.GetVortoValue("pageTitle", language)
+
+                });
+
+                menu.Add(new
+                {
+                    Id = menuParent.Id,
+                    pageTitle = menuParent.GetVortoValue("pageTitle", language),
+                    items = menuItems
+                });
+            }
+            
+            return menu;
+        }
+
         [System.Web.Http.HttpGet]
         public object Page(int id, string language = null)
         {
@@ -33,7 +62,6 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             var umbracoProperties = new Dictionary<string, object>
             {
                 {"Id", page.Id},
-                {"Url", page.Url},
                 {"Name", page.Name},
                 {"WriterName", page.WriterName},
                 {"CreateDate", page.CreateDate},
