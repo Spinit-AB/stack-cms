@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
-using Newtonsoft.Json;
-using Spinit.Stack.CMS.Features.Content;
-using Umbraco.Core.Models;
-using Umbraco.Web;
-using Umbraco.Web.Models;
+using Umbraco.Core;
+using Umbraco.Web.Extensions;
 using Umbraco.Web.WebApi;
 
 namespace Spinit.Stack.CMS.Features.ContentApi
@@ -15,11 +11,25 @@ namespace Spinit.Stack.CMS.Features.ContentApi
         [System.Web.Http.HttpGet]
         public object Page(int id)
         {
-            //var root = Umbraco.TypedContentAtRoot().First();
-
             var page = Umbraco.TypedContent(id);
 
-            var customProperties = page.Properties.ToDictionary(prop => prop.PropertyTypeAlias, prop => prop.Value);
+            var contentType = Services.ContentService.GetById(page.Id);
+
+            var customProperties = contentType.Properties.ToDictionary(prop => prop.Alias,
+                property => new
+                {
+                    Value = 
+                    property.PropertyType?.PropertyEditorAlias == "Umbraco.MediaPicker2" ?
+                    Udi.Parse(property.Value.ToString()).ToPublishedContent().Url :
+
+                    property.PropertyType?.PropertyEditorAlias == "Umbraco.ContentPicker2" ?
+                    Udi.Parse(property.Value.ToString()).ToPublishedContent().Id
+
+                    :  
+                    
+                    property.Value,
+                    Type = property.PropertyType?.PropertyEditorAlias,
+                });
 
             var umbracoProperties = new Dictionary<string, object>
             {
