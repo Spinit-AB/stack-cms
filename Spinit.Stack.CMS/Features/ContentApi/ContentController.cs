@@ -45,7 +45,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
         {
             var rootDictionaryItems = Services.LocalizationService.GetRootDictionaryItems();
 
-            var translations = GetAllDictonaryItems(rootDictionaryItems, language).SelectMany(d => d).ToDictionary(e => e.Key, e => e.Value); ;
+            var translations = GetAllDictonaryItems(rootDictionaryItems, language).SelectMany(d => d).ToDictionary(e => e.Key, e => e.Value);
 
             return translations;
         }
