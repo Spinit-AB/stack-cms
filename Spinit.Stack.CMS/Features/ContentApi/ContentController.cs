@@ -7,7 +7,7 @@ using Umbraco.Web.WebApi;
 
 namespace Spinit.Stack.CMS.Features.ContentApi
 {
-    public class ContentPageApiController : UmbracoApiController
+    public class ContentController : UmbracoApiController
     {
         [System.Web.Http.HttpGet]
         public object Page(int id, string language = null)
