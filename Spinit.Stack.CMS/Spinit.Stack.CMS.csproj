@@ -466,6 +466,7 @@
     <Compile Include="Features\ContentApi\ContentController.cs" />
     <Compile Include="Features\Content\ContentPageController.cs" />
     <Compile Include="Features\Content\ContentPageModel.cs" />
+    <Compile Include="Features\Language\Translate.cs" />
     <Compile Include="Features\Search\SearchController.cs" />
     <Compile Include="GeneratedModels\BasePage.generated.cs">
       <DependentUpon>ModelsBuilder.cs</DependentUpon>
@@ -483,6 +484,9 @@
       <DependentUpon>ModelsBuilder.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneratedModels\Image.generated.cs">
+      <DependentUpon>ModelsBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedModels\Master.generated.cs">
       <DependentUpon>ModelsBuilder.cs</DependentUpon>
     </Compile>
     <Compile Include="GeneratedModels\Member.generated.cs">
@@ -527,7 +531,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53893/</IISUrl>
+          <IISUrl>http://localhost:3007/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

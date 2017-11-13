@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Our.Umbraco.Vorto.Extensions;
+using Spinit.Stack.CMS.Features.Language;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web.Extensions;
@@ -10,8 +11,6 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 {
     public class ContentController : UmbracoApiController
     {
-        private const string DEFAULT_LANGUAGE = "en-US";
-
         // Umbraco/api/content/MainMenu
         [System.Web.Http.HttpGet]
         public object MainMenu(string language = null)
@@ -49,7 +48,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
         // Umbraco/api/content/Translations
         [System.Web.Http.HttpGet]
-        public object Translations(string language = DEFAULT_LANGUAGE)
+        public object Translations(string language = Translate.DEFAULT_LANGUAGE)
         {
             var rootDictionaryItems = Services.LocalizationService.GetRootDictionaryItems();
 
@@ -126,7 +125,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
                 if (string.IsNullOrEmpty(translationInLanguage))
                 {
-                    translationInLanguage = dictionaryItem.Translations.Where(translation => translation.Language.IsoCode.Equals(DEFAULT_LANGUAGE)).Select(x => x.Value).FirstOrDefault();
+                    translationInLanguage = dictionaryItem.Translations.Where(translation => translation.Language.IsoCode.Equals(Translate.DEFAULT_LANGUAGE)).Select(x => x.Value).FirstOrDefault();
                 }
 
                 translations.Add(

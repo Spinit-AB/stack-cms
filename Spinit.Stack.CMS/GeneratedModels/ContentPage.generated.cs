@@ -44,5 +44,50 @@ namespace Spinit.Stack.CMS.GeneratedModels
 		{
 			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 		}
+
+		///<summary>
+		/// Bool
+		///</summary>
+		[ImplementPropertyType("bool")]
+		public bool Bool
+		{
+			get { return this.GetPropertyValue<bool>("bool"); }
+		}
+
+		///<summary>
+		/// ContentPicker
+		///</summary>
+		[ImplementPropertyType("contentPicker")]
+		public IPublishedContent ContentPicker
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("contentPicker"); }
+		}
+
+		///<summary>
+		/// Date
+		///</summary>
+		[ImplementPropertyType("date")]
+		public DateTime Date
+		{
+			get { return this.GetPropertyValue<DateTime>("date"); }
+		}
+
+		///<summary>
+		/// GridLayout
+		///</summary>
+		[ImplementPropertyType("gridLayout")]
+		public Newtonsoft.Json.Linq.JToken GridLayout
+		{
+			get { return this.GetPropertyValue<Newtonsoft.Json.Linq.JToken>("gridLayout"); }
+		}
+
+		///<summary>
+		/// Image
+		///</summary>
+		[ImplementPropertyType("image")]
+		public IPublishedContent Image
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("image"); }
+		}
 	}
 }

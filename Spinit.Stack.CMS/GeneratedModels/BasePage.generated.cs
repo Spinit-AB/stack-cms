@@ -20,9 +20,9 @@ using Umbraco.ModelsBuilder.Umbraco;
 
 namespace Spinit.Stack.CMS.GeneratedModels
 {
-	/// <summary>BasePage</summary>
+	/// <summary>Base Page</summary>
 	[PublishedContentModel("basePage")]
-	public partial class BasePage : PublishedContentModel
+	public partial class BasePage : Master
 	{
 #pragma warning disable 0109 // new is redundant
 		public new const string ModelTypeAlias = "basePage";
@@ -49,45 +49,45 @@ namespace Spinit.Stack.CMS.GeneratedModels
 		/// Body Text
 		///</summary>
 		[ImplementPropertyType("bodyText")]
-		public IHtmlString BodyText
+		public Our.Umbraco.Vorto.Models.VortoValue BodyText
 		{
-			get { return this.GetPropertyValue<IHtmlString>("bodyText"); }
+			get { return this.GetPropertyValue<Our.Umbraco.Vorto.Models.VortoValue>("bodyText"); }
 		}
 
 		///<summary>
 		/// Meta Description
 		///</summary>
 		[ImplementPropertyType("metaDescription")]
-		public string MetaDescription
+		public Our.Umbraco.Vorto.Models.VortoValue MetaDescription
 		{
-			get { return this.GetPropertyValue<string>("metaDescription"); }
+			get { return this.GetPropertyValue<Our.Umbraco.Vorto.Models.VortoValue>("metaDescription"); }
 		}
 
 		///<summary>
 		/// Meta Title
 		///</summary>
 		[ImplementPropertyType("metaTitle")]
-		public string MetaTitle
+		public Our.Umbraco.Vorto.Models.VortoValue MetaTitle
 		{
-			get { return this.GetPropertyValue<string>("metaTitle"); }
+			get { return this.GetPropertyValue<Our.Umbraco.Vorto.Models.VortoValue>("metaTitle"); }
 		}
 
 		///<summary>
 		/// Page Title
 		///</summary>
 		[ImplementPropertyType("pageTitle")]
-		public string PageTitle
+		public Our.Umbraco.Vorto.Models.VortoValue PageTitle
 		{
-			get { return this.GetPropertyValue<string>("pageTitle"); }
+			get { return this.GetPropertyValue<Our.Umbraco.Vorto.Models.VortoValue>("pageTitle"); }
 		}
 
 		///<summary>
 		/// Sub Heading
 		///</summary>
 		[ImplementPropertyType("subHeading")]
-		public string SubHeading
+		public Our.Umbraco.Vorto.Models.VortoValue SubHeading
 		{
-			get { return this.GetPropertyValue<string>("subHeading"); }
+			get { return this.GetPropertyValue<Our.Umbraco.Vorto.Models.VortoValue>("subHeading"); }
 		}
 	}
 }
