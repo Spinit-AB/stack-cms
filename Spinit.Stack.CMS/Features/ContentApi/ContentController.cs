@@ -42,7 +42,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             return new Result
             {
                 success = true,
-                message = "OK",
+                message = ResultMessage.OK,
                 data = menu
             };
         }
@@ -58,7 +58,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             return new Result
             {
                 success = true,
-                message = "OK",
+                message = ResultMessage.OK,
                 data = translations
             };
         }
@@ -111,7 +111,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             return new Result
             {
                 success = true,
-                message = "OK",
+                message = ResultMessage.OK,
                 data = umbracoProperties
             };
         }
@@ -189,4 +189,8 @@ namespace Spinit.Stack.CMS.Features.ContentApi
         public object data { get; set; }
     }
 
+    public static class ResultMessage
+    {
+        public static string OK => "OK";
+    }
 }
