@@ -16,33 +16,14 @@ namespace Spinit.Stack.CMS.Features.ContentApi
         public object MainMenu(string language = null)
         {
             var rootPage = Umbraco.TypedContentAtRoot().First();
-
-            var menu = new List<object>();
-
-            foreach (var menuParent in rootPage.Children)
-            {
-                var menuItems = menuParent.Children.Select(page => new
-                {
-                    id = page.Id,
-                    pageTitle = page.GetVortoValue("pageTitle", language),
-                    documentTypeAlias = page.DocumentTypeAlias
-
-                });
-
-                menu.Add(new
-                {
-                    id = menuParent.Id,
-                    pageTitle = menuParent.GetVortoValue("pageTitle", language),
-                    documentTypeAlias = menuParent.DocumentTypeAlias,
-                    items = menuItems
-                });
-            }
+            
+            var menuItems = GetMenuItems(rootPage, language);
 
             return new Result
             {
                 success = true,
                 message = ResultMessage.OK,
-                data = menu
+                data = menuItems
             };
         }
 
@@ -113,6 +94,16 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                 message = ResultMessage.OK,
                 data = umbracoProperties
             };
+        }
+        private object GetMenuItems(IPublishedContent startNode, string language = null)
+        {
+            return startNode.Children.Select(page => new
+            {
+                id = page.Id,
+                pageTitle = page.GetVortoValue("pageTitle", language),
+                documentTypeAlias = page.DocumentTypeAlias,
+                items = GetMenuItems(page, language)
+            });
         }
 
         private IEnumerable<Dictionary<string, object>> GetDictonaryItems(IEnumerable<IDictionaryItem> dictionaryItems, string language)
