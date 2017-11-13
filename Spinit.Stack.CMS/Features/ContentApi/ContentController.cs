@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Our.Umbraco.Vorto.Extensions;
 using Umbraco.Core;
 using Umbraco.Core.Models;
-using Umbraco.Web;
 using Umbraco.Web.Extensions;
 using Umbraco.Web.WebApi;
 
 namespace Spinit.Stack.CMS.Features.ContentApi
 {
+
     public class ContentController : UmbracoApiController
     {
+        private const string DEFAULT_LANGUAGE = "en-US";
 
         [System.Web.Http.HttpGet]
         public object MainMenu(string language = null)
@@ -24,15 +24,17 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             {
                 var menuItems = menuParent.Children.Select(page => new
                 {
-                    Id = page.Id,
-                    pageTitle = page.GetVortoValue("pageTitle", language)
+                    id = page.Id,
+                    pageTitle = page.GetVortoValue("pageTitle", language),
+                    documentTypeAlias = page.DocumentTypeAlias
 
                 });
 
                 menu.Add(new
                 {
-                    Id = menuParent.Id,
+                    id = menuParent.Id,
                     pageTitle = menuParent.GetVortoValue("pageTitle", language),
+                    documentTypeAlias = menuParent.DocumentTypeAlias,
                     items = menuItems
                 });
             }
@@ -41,7 +43,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
         }
 
         [System.Web.Http.HttpGet]
-        public object Translations(string language)
+        public object Translations(string language = DEFAULT_LANGUAGE)
         {
             var rootDictionaryItems = Services.LocalizationService.GetRootDictionaryItems();
 
@@ -60,7 +62,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
                 if (string.IsNullOrEmpty(translationInLanguage))
                 {
-                    translationInLanguage = dictionaryItem.Translations.Where(translation => translation.Language.IsoCode.StartsWith("en-US")).Select(x => x.Value).FirstOrDefault();
+                    translationInLanguage = dictionaryItem.Translations.Where(translation => translation.Language.IsoCode.Equals(DEFAULT_LANGUAGE)).Select(x => x.Value).FirstOrDefault();
                 }
 
                 translations.Add(
@@ -93,12 +95,12 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
             var umbracoProperties = new Dictionary<string, object>
             {
-                {"Id", page.Id},
-                {"Name", page.Name},
-                {"WriterName", page.WriterName},
-                {"CreateDate", page.CreateDate},
-                {"DocumentTypeAlias", page.DocumentTypeAlias},
-                {"CustomProperties", customProperties}
+                {"id", page.Id},
+                {"name", page.Name},
+                {"writerName", page.WriterName},
+                {"createDate", page.CreateDate},
+                {"documentTypeAlias", page.DocumentTypeAlias},
+                {"customProperties", customProperties}
             };
 
             return umbracoProperties;
