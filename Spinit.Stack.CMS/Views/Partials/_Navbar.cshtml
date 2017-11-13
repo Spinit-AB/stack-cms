@@ -1,4 +1,5 @@
-﻿@using umbraco.NodeFactory
+﻿@using Our.Umbraco.Vorto.Extensions
+@using umbraco.NodeFactory
 <div class="navbar navbar-inverse">
     <div class="container">
         <div class="navbar-collapse collapse">
@@ -11,12 +12,12 @@
                     var homeNodeByAlias = rootNodes.First(x => x.DocumentTypeAlias == "home");
                 }
 
-                <li class="@(homeNodeByAlias.Id == Node.GetCurrent().Id ? "active" : "")"><a href="@homeNodeByAlias.Url">@homeNodeByAlias.GetProperty("PageTitle").Value</a></li>
+                <li class="@(homeNodeByAlias.Id == Node.GetCurrent().Id ? "active" : "")"><a href="@homeNodeByAlias.Url">@homeNodeByAlias.GetVortoValue("PageTitle")</a></li>
 
                 @foreach (var child in homeNodeByAlias.Children())
                 {
                     
-                    <li class="@(child.Id == Node.GetCurrent().Id ? "active" : "")"><a href="@child.Url">@child.GetProperty("PageTitle").Value</a></li>
+                    <li class="@(child.Id == Node.GetCurrent().Id ? "active" : "")"><a href="@child.Url">@child.GetVortoValue("PageTitle")</a></li>
                 }
             </ul>
             <form id="search-form" class="navbar-form navbar-left">
