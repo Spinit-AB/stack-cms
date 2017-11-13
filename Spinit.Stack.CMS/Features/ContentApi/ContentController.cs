@@ -8,11 +8,11 @@ using Umbraco.Web.WebApi;
 
 namespace Spinit.Stack.CMS.Features.ContentApi
 {
-
     public class ContentController : UmbracoApiController
     {
         private const string DEFAULT_LANGUAGE = "en-US";
 
+        // Umbraco/api/content/MainMenu
         [System.Web.Http.HttpGet]
         public object MainMenu(string language = null)
         {
@@ -38,10 +38,16 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                     items = menuItems
                 });
             }
-            
-            return menu;
+
+            return new Result
+            {
+                success = true,
+                message = "OK",
+                data = menu
+            };
         }
 
+        // Umbraco/api/content/Translations
         [System.Web.Http.HttpGet]
         public object Translations(string language = DEFAULT_LANGUAGE)
         {
@@ -49,7 +55,65 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
             var translations = GetDictonaryItems(rootDictionaryItems, language).SelectMany(d => d).ToDictionary(e => e.Key, e => e.Value);
 
-            return translations;
+            return new Result
+            {
+                success = true,
+                message = "OK",
+                data = translations
+            };
+        }
+
+        // Umbraco/api/content/Page/?id=X
+        [System.Web.Http.HttpGet]
+        public object Page(int? id = null, string umb = null, string language = null)
+        {
+            IPublishedContent page;
+
+            if (!string.IsNullOrEmpty(umb))
+            {
+                page = GetPageByUmbLink(umb);
+            }
+            else if (id != null)
+            {
+                page = Umbraco.TypedContent(id);
+            }
+            else
+            {
+                page = null;
+            }
+            
+            if(page == null)
+            {
+                return new Result
+                {
+                    success = false,
+                    message = "No page found"
+                };
+            }
+
+            var contentType = Services.ContentService.GetById(page.Id);
+
+            var customProperties = contentType.Properties.ToDictionary(property => property.Alias,
+                property => GetPropertyValue(property, page, language)
+
+                );
+
+            var umbracoProperties = new Dictionary<string, object>
+            {
+                {"id", page.Id},
+                {"name", page.Name},
+                {"writerName", page.WriterName},
+                {"createDate", page.CreateDate},
+                {"documentTypeAlias", page.DocumentTypeAlias},
+                {"customProperties", customProperties}
+            };
+
+            return new Result
+            {
+                success = true,
+                message = "OK",
+                data = umbracoProperties
+            };
         }
 
         private IEnumerable<Dictionary<string, object>> GetDictonaryItems(IEnumerable<IDictionaryItem> dictionaryItems, string language)
@@ -74,36 +138,11 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                 var childrens = Services.LocalizationService.GetDictionaryItemChildren(dictionaryItem.Key);
                 if (childrens.Any())
                 {
-                    translations.AddRange(GetDictonaryItems(Services.LocalizationService.GetDictionaryItemChildren(dictionaryItem.Key),language));
+                    translations.AddRange(GetDictonaryItems(Services.LocalizationService.GetDictionaryItemChildren(dictionaryItem.Key), language));
                 }
             }
 
             return translations;
-        }
-
-        [System.Web.Http.HttpGet]
-        public object Page(int id, string language = null)
-        {
-            var page = Umbraco.TypedContent(id);
-
-            var contentType = Services.ContentService.GetById(page.Id);
-
-            var customProperties = contentType.Properties.ToDictionary(property => property.Alias,
-                property => GetPropertyValue(property, page, language)
-
-                );
-
-            var umbracoProperties = new Dictionary<string, object>
-            {
-                {"id", page.Id},
-                {"name", page.Name},
-                {"writerName", page.WriterName},
-                {"createDate", page.CreateDate},
-                {"documentTypeAlias", page.DocumentTypeAlias},
-                {"customProperties", customProperties}
-            };
-
-            return umbracoProperties;
         }
 
         private object GetPropertyValue(Property property, IPublishedContent page, string language)
@@ -120,8 +159,9 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
                 case "Umbraco.ContentPicker2":
                     var contentUdi = property.Value?.ToString();
+                    var contentPage = GetPageByUmbLink(contentUdi);
 
-                    value = !string.IsNullOrEmpty(contentUdi) ? Udi.Parse(contentUdi)?.ToPublishedContent()?.Id : null;
+                    value = contentPage?.Id;
                     break;
 
                 case "Our.Umbraco.Vorto":
@@ -136,6 +176,17 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             return value;
         }
 
-
+        private IPublishedContent GetPageByUmbLink(string umbLink)
+        {
+            return !string.IsNullOrEmpty(umbLink) ? Udi.Parse(umbLink)?.ToPublishedContent() : null;
+        }
     }
+
+    public class Result
+    {
+        public bool success { get; set; }
+        public string message { get; set; }
+        public object data { get; set; }
+    }
+
 }
