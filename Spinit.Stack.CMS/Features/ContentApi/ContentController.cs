@@ -154,6 +154,13 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                     value = contentPage?.Id;
                     break;
 
+                case "Umbraco.MultiNodeTreePicker2":
+                    var contentUdiList = property.Value?.ToString().Split(',');
+                    var contentList = contentUdiList.Select(GetPageByUmbLink).Select(contentUdiPage => contentUdiPage?.Id);
+
+                    value = contentList;
+                    break;
+
                 case "Our.Umbraco.Vorto":
                     value = page.GetVortoValue(property.Alias, language);
                     break;
