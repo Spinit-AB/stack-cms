@@ -66,6 +66,8 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             };
         }
 
+        // Umbraco/api/content/Page/?id=X,Y,Z
+        // Umbraco/api/content/Page/?url=/asd/asd;/qwerty/qwerty
         // Umbraco/api/content/Page/?id=X,Y,Z&language=sv&custom={'multinodeTreepicker':{take:3,evaluate:true}}
         [System.Web.Http.HttpGet]
         public object Page(string id = null, string url = null, string language = null, string custom = null)
