@@ -34,9 +34,28 @@ namespace Spinit.Stack.CMS.Features.ContentApi
         [System.Web.Http.HttpGet]
         public object Translations(string language = Translate.DEFAULT_LANGUAGE)
         {
-            var rootDictionaryItems = Services.LocalizationService.GetRootDictionaryItems();
+            var languages = Services.LocalizationService.GetAllLanguages();
 
-            var translations = GetDictonaryItems(rootDictionaryItems, language).SelectMany(d => d).ToDictionary(e => e.Key, e => e.Value);
+            var requestedLanguage = languages.SingleOrDefault(x => x.IsoCode.StartsWith(language));
+
+            if (requestedLanguage == null)
+            {
+                return new Result
+                {
+                    success = false,
+                    message = $"No defined language with code:{language}"
+                };
+            }
+
+            var allItems = ContentService.GetAllDictionaryItems(requestedLanguage.Id);
+
+            var dictionaryItems = allItems.Select(x =>
+               new Dictionary<string, object>()
+                   {{ x.Key,
+                        x.Value}
+                   });
+
+            var translations = dictionaryItems.SelectMany(d => d).ToDictionary(e => e.Key, e => e.Value);
 
             return new Result
             {
