@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Our.Umbraco.Vorto.Extensions;
 using Spinit.Stack.CMS.Features.Language;
 using Umbraco.Core;
@@ -43,26 +46,26 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             };
         }
 
-        // Umbraco/api/content/Page/?id=X
+        // Umbraco/api/content/Page/?id=X,Y,Z&language=sv&custom={'multinodeTreepicker':{take:3,evaluate:true}}
         [System.Web.Http.HttpGet]
-        public object Page(int? id = null, string umb = null, string language = null)
+        public object Page(string id, string language = null, string custom = null)
         {
-            IPublishedContent page;
+            if (string.IsNullOrEmpty(id))
+            {
+                return new Result
+                {
+                    success = false,
+                    message = "Specify on or more id's"
+                };
+            }
 
-            if (!string.IsNullOrEmpty(umb))
-            {
-                page = GetPageByUmbLink(umb);
-            }
-            else if (id != null)
-            {
-                page = Umbraco.TypedContent(id);
-            }
-            else
-            {
-                page = null;
-            }
-            
-            if(page == null)
+            var customAsJson = (JObject) JsonConvert.DeserializeObject(custom);
+
+            var allPageIds = id?.Split(',').Select(idString => Convert.ToInt32(idString));
+
+            var pageList = GetPageContent(allPageIds, language, customAsJson);
+
+            if (pageList.FirstOrDefault() == null)
             {
                 return new Result
                 {
@@ -71,30 +74,56 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                 };
             }
 
-            var contentType = Services.ContentService.GetById(page.Id);
-
-            var customProperties = contentType.Properties.ToDictionary(property => property.Alias,
-                property => GetPropertyValue(property, page, language)
-
-                );
-
-            var umbracoProperties = new Dictionary<string, object>
-            {
-                {"id", page.Id},
-                {"name", page.Name},
-                {"writerName", page.WriterName},
-                {"createDate", page.CreateDate},
-                {"documentTypeAlias", page.DocumentTypeAlias},
-                {"customProperties", customProperties}
-            };
-
             return new Result
             {
                 success = true,
                 message = ResultMessage.OK,
-                data = umbracoProperties
+                data = pageList
             };
         }
+
+        private List<Dictionary<string, object>> GetPageContent(IEnumerable<int> pageIds, string language, JObject custom = null)
+        {
+            var pageContent = new List<Dictionary<string, object>>();
+
+            foreach (var pageId in pageIds)
+            {
+                var page = Umbraco.TypedContent(pageId);
+
+                if(page == null)
+                    continue;
+               
+                var contentType = Services.ContentService.GetById(page.Id);
+
+                var customProperties = contentType.Properties.ToDictionary(property => property.Alias,
+                    property =>
+                    {
+                        var customs = custom?[property.Alias];
+                        if (customs != null)
+                        {
+                            return GetPropertyValue(property, page, language, customs);
+                        }
+                        return GetPropertyValue(property, page, language);
+                    }
+
+                    );
+
+                var umbracoProperties = new Dictionary<string, object>
+                {
+                    {"id", page.Id},
+                    {"name", page.Name},
+                    {"writerName", page.WriterName},
+                    {"createDate", page.CreateDate},
+                    {"documentTypeAlias", page.DocumentTypeAlias},
+                    {"customProperties", customProperties}
+                };
+
+                pageContent.Add(umbracoProperties);
+            }
+
+            return pageContent;
+        }
+        
         private object GetMenuItems(IPublishedContent startNode, string language = null)
         {
             return startNode.Children.Select(page => new
@@ -135,9 +164,11 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             return translations;
         }
 
-        private object GetPropertyValue(Property property, IPublishedContent page, string language)
+        private object GetPropertyValue(Property property, IPublishedContent page, string language, JToken customs = null)
         {
             object value;
+            var evaluate = customs?["evaluate"] != null && customs["evaluate"].Value<bool>();
+            var take = (customs != null && customs["take"]?.Value<int>() > 0) ? customs["take"]?.Value<int?>() : null;
 
             switch (property.PropertyType?.PropertyEditorAlias)
             {
@@ -152,13 +183,32 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                     var contentPage = GetPageByUmbLink(contentUdi);
 
                     value = contentPage?.Id;
+
+                    if (evaluate && value != null)
+                    {
+                        value = GetPageContent(new List<int> { Convert.ToInt32(value) }, language).FirstOrDefault();
+                    }
+                    
                     break;
 
                 case "Umbraco.MultiNodeTreePicker2":
                     var contentUdiList = property.Value?.ToString().Split(',');
-                    var contentList = contentUdiList.Select(GetPageByUmbLink).Select(contentUdiPage => contentUdiPage?.Id);
+                    var contentList = contentUdiList?.Select(GetPageByUmbLink).Select(contentUdiPage => contentUdiPage?.Id);
 
                     value = contentList;
+
+                    if (evaluate && contentList != null)
+                    {
+                        var contentListIds = contentList.Select(id => GetPageContent(new List<int> { Convert.ToInt32(id) }, language).FirstOrDefault());
+
+                        value = contentListIds;
+
+                        if (take != null)
+                        {
+                            value = contentListIds.Take(Convert.ToInt32(take));
+                        }
+                    }
+
                     break;
 
                 case "Our.Umbraco.Vorto":
