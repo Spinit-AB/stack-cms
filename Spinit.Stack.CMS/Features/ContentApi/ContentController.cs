@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Our.Umbraco.Vorto.Extensions;
 using Spinit.Stack.CMS.Features.Language;
+using umbraco;
 using Umbraco.Core;
 using Umbraco.Core.Models;
 using Umbraco.Web.Extensions;
@@ -67,23 +68,35 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
         // Umbraco/api/content/Page/?id=X,Y,Z&language=sv&custom={'multinodeTreepicker':{take:3,evaluate:true}}
         [System.Web.Http.HttpGet]
-        public object Page(string id, string language = null, string custom = null)
+        public object Page(string id = null, string url = null, string language = null, string custom = null)
         {
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id) && string.IsNullOrEmpty(url))
             {
                 return new Result
                 {
                     success = false,
-                    message = "Specify on or more id's"
+                    message = "Specify a url or id"
                 };
             }
 
-            var customAsJson = (JObject) JsonConvert.DeserializeObject(custom);
+            var customAsJson = !string.IsNullOrEmpty(custom) ? (JObject) JsonConvert.DeserializeObject(custom) : null;
 
-            var allPageIds = id?.Split(',').Select(idString => Convert.ToInt32(idString));
+            IEnumerable<Dictionary<string, object>> pageList = null;
 
-            var pageList = GetPageContent(allPageIds, language, customAsJson);
+            if (!string.IsNullOrEmpty(id))
+            {
+                var allPageIds = id?.Split(',').Select(idString => Convert.ToInt32(idString));
+                pageList = allPageIds?.Select(pageId => GetPageContent(pageId, language, customAsJson));
+            }
 
+            if (!string.IsNullOrEmpty(url))
+            {
+                var allPageUrls = url?.Split(';');
+                var pages = allPageUrls.Select(urlString => UmbracoContext.ContentCache.GetByRoute(urlString));
+
+                pageList = pages?.Select(pageId => GetPageContent(pageId, language, customAsJson));
+            }
+            
             if (pageList.FirstOrDefault() == null)
             {
                 return new Result
@@ -101,46 +114,44 @@ namespace Spinit.Stack.CMS.Features.ContentApi
             };
         }
 
-        private List<Dictionary<string, object>> GetPageContent(IEnumerable<int> pageIds, string language, JObject custom = null)
+        private Dictionary<string, object> GetPageContent(IPublishedContent page, string language, JObject custom = null)
         {
-            var pageContent = new List<Dictionary<string, object>>();
+            var contentType = Services.ContentService.GetById(page.Id);
 
-            foreach (var pageId in pageIds)
-            {
-                var page = Umbraco.TypedContent(pageId);
-
-                if(page == null)
-                    continue;
-               
-                var contentType = Services.ContentService.GetById(page.Id);
-
-                var customProperties = contentType.Properties.ToDictionary(property => property.Alias,
-                    property =>
-                    {
-                        var customs = custom?[property.Alias];
-                        if (customs != null)
-                        {
-                            return GetPropertyValue(property, page, language, customs);
-                        }
-                        return GetPropertyValue(property, page, language);
-                    }
-
-                    );
-
-                var umbracoProperties = new Dictionary<string, object>
+            var customProperties = contentType.Properties.ToDictionary(property => property.Alias,
+                property =>
                 {
-                    {"id", page.Id},
-                    {"name", page.Name},
-                    {"writerName", page.WriterName},
-                    {"createDate", page.CreateDate},
-                    {"documentTypeAlias", page.DocumentTypeAlias},
-                    {"customProperties", customProperties}
-                };
+                    var customs = custom?[property.Alias];
+                    if (customs != null)
+                    {
+                        return GetPropertyValue(property, page, language, customs);
+                    }
+                    return GetPropertyValue(property, page, language);
+                }
 
-                pageContent.Add(umbracoProperties);
-            }
+                );
 
-            return pageContent;
+            var umbracoProperties = new Dictionary<string, object>
+            {
+                {"id", page.Id},
+                {"name", page.Name},
+                {"writerName", page.WriterName},
+                {"createDate", page.CreateDate},
+                {"documentTypeAlias", page.DocumentTypeAlias},
+                {"customProperties", customProperties}
+            };
+
+            return umbracoProperties;
+        }
+
+        private Dictionary<string, object> GetPageContent(int pageId, string language, JObject custom = null)
+        {
+            var page = Umbraco.TypedContent(pageId);
+
+            if(page == null)
+                return null;
+         
+            return GetPageContent(page, language, custom);
         }
         
         private object GetMenuItems(IPublishedContent startNode, string language = null)
@@ -150,7 +161,8 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                 id = page.Id,
                 pageTitle = page.GetVortoValue("pageTitle", language),
                 documentTypeAlias = page.DocumentTypeAlias,
-                items = GetMenuItems(page, language)
+                items = GetMenuItems(page, language),
+                url = page.Url
             });
         }
 
@@ -205,7 +217,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
                     if (evaluate && value != null)
                     {
-                        value = GetPageContent(new List<int> { Convert.ToInt32(value) }, language).FirstOrDefault();
+                        value = GetPageContent(Convert.ToInt32(value), language);
                     }
                     
                     break;
@@ -218,7 +230,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
                     if (evaluate && contentList != null)
                     {
-                        var contentListIds = contentList.Select(id => GetPageContent(new List<int> { Convert.ToInt32(id) }, language).FirstOrDefault());
+                        var contentListIds = contentList.Select(id => GetPageContent(Convert.ToInt32(id), language));
 
                         value = contentListIds;
 

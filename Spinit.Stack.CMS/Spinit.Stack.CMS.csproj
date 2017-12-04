@@ -484,6 +484,8 @@
   <ItemGroup>
     <Compile Include="CustomApplicationEventHandler.cs" />
     <Compile Include="Features\ContentApi\ContentController.cs" />
+    <Compile Include="Features\ContentApi\ContentService.cs" />
+    <Compile Include="Features\ContentApi\Db.cs" />
     <Compile Include="Features\Content\ContentPageController.cs" />
     <Compile Include="Features\Content\ContentPageModel.cs" />
     <Compile Include="Features\Language\Translate.cs" />
