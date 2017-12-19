@@ -215,7 +215,7 @@ namespace Spinit.Stack.CMS.Features.ContentApi
                     var contentUdi = property.Value?.ToString();
                     var contentPage = GetPageByUmbLink(contentUdi);
 
-                    value = contentPage?.Id;
+                    value = new { id = contentPage?.Id, url = contentPage?.Url};
 
                     if (evaluate && value != null)
                     {
@@ -226,7 +226,8 @@ namespace Spinit.Stack.CMS.Features.ContentApi
 
                 case "Umbraco.MultiNodeTreePicker2":
                     var contentUdiList = property.Value?.ToString().Split(',');
-                    var contentList = contentUdiList?.Select(GetPageByUmbLink).Select(contentUdiPage => contentUdiPage?.Id);
+                    var contentList = contentUdiList?.Select(GetPageByUmbLink)
+                        .Select(contentUdiPage => new { id = contentUdiPage?.Id, url = contentUdiPage?.Url});
 
                     value = contentList;
 
